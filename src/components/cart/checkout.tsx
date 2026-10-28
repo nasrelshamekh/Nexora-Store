@@ -19,7 +19,7 @@ import { checkoutUser } from "@/actions/cart.action"
 import { CheckoutFormValues, checkoutSchema } from "@/schema/checkout.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
-import { CreditCard, MapPin, Building2, Phone, ShieldCheck, Lock } from "lucide-react"
+import { CreditCard, MapPin, Building2, Phone, Lock } from "lucide-react"
 
 export function Checkout({ cartId }: { cartId: string }) {
     const form = useForm<CheckoutFormValues>({

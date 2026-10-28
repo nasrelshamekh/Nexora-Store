@@ -18,6 +18,8 @@ import { WishlistProductI } from '@/interfaces/wishlistproduct';
 import AddCartButton from '@/components/products/addToCartBtn';
 import RemoveWishlistButton from '@/components/wishlist/removeFromWishlistBtn';
 
+export const dynamic = 'force-dynamic';
+
 export default async function WishlistPage() {
   let wishlistProducts: WishlistProductI[] = [];
   
