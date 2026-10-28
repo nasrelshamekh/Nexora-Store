@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import Link from "next/link"
 import {
-  ShoppingBag,
+  ShoppingCart,
   Trash2,
   ArrowLeft,
   ShieldCheck,
@@ -68,14 +68,14 @@ export default function Cart() {
       const response = await clearUserCart()
 
       if (response.message === "success") {
-        toast.success("Shopping bag cleared successfully", { position: "top-center" })
+        toast.success("Shopping cart cleared successfully", { position: "top-center" })
       }
       setProducts([])
       setClearDialogOpen(false)
       handleCart()
     } catch (error) {
       console.error(error)
-      toast.error("Failed to clear shopping bag", { position: "top-center" })
+      toast.error("Failed to clear shopping cart", { position: "top-center" })
     } finally {
       setIsClearCartLoading(false)
     }
@@ -113,7 +113,7 @@ export default function Cart() {
           <div className="space-y-1">
             <h2 className="text-xl font-bold tracking-tight">Nexora Store</h2>
             <p className="text-xs text-muted-foreground flex items-center justify-center gap-2">
-              <Spinner className="w-3.5 h-3.5" /> Loading your shopping bag...
+              <Spinner className="w-3.5 h-3.5" /> Loading your shopping cart...
             </p>
           </div>
         </div>
@@ -131,7 +131,7 @@ export default function Cart() {
           {/* Visual Icon Badge */}
           <div className="relative inline-flex items-center justify-center">
             <div className="w-24 h-24 rounded-3xl bg-muted border border-border flex items-center justify-center shadow-lg shadow-black/5 dark:shadow-white/5">
-              <ShoppingBag className="w-12 h-12 text-muted-foreground" />
+              <ShoppingCart className="w-12 h-12 text-muted-foreground" />
             </div>
             <span className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
               0
@@ -141,7 +141,7 @@ export default function Cart() {
           {/* Heading & Subtitle */}
           <div className="space-y-3 max-w-md mx-auto">
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-              Your Shopping Bag is Empty
+              Your Shopping Cart is Empty
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
               Looks like you haven&apos;t added any items yet. Explore our curated collections of electronics, fashion, and accessories.
@@ -156,7 +156,7 @@ export default function Cart() {
               className="w-full sm:w-auto rounded-full px-8 py-6 text-base font-semibold bg-primary text-primary-foreground hover:opacity-90 shadow-md cursor-pointer"
             >
               <Link href="/products" className="inline-flex items-center gap-2">
-                <ShoppingBag className="w-5 h-5" />
+                <ShoppingCart className="w-5 h-5" />
                 Explore Catalog
               </Link>
             </Button>
@@ -211,7 +211,7 @@ export default function Cart() {
             <span>/</span>
             <Link href="/products" className="hover:text-foreground transition-colors">Shop</Link>
             <span>/</span>
-            <span className="text-foreground font-semibold">Shopping Bag</span>
+            <span className="text-foreground font-semibold">Shopping Cart</span>
           </nav>
           <span className="hidden sm:inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
             <Lock className="w-3.5 h-3.5" /> 256-Bit SSL Encrypted Checkout
@@ -224,7 +224,7 @@ export default function Cart() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Shopping Bag</h1>
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Shopping Cart</h1>
               <Badge variant="secondary" className="text-xs px-2.5 py-1 rounded-full font-mono font-bold">
                 {noOfCartItems} {noOfCartItems === 1 ? "item" : "items"}
               </Badge>
@@ -252,7 +252,7 @@ export default function Cart() {
                   <Trash2 className="w-6 h-6" />
                 </div>
                 <div>
-                  <DialogTitle className="text-lg font-bold">Empty your shopping bag?</DialogTitle>
+                  <DialogTitle className="text-lg font-bold">Empty your shopping cart?</DialogTitle>
                   <DialogDescription className="text-xs text-muted-foreground mt-1">
                     Are you sure you want to remove all items from your cart? This action cannot be reversed.
                   </DialogDescription>
