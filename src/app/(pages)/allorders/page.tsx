@@ -2,6 +2,7 @@ import React from 'react';
 import { Package, Calendar, CreditCard, MapPin, Truck, Check, Clock } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -21,19 +22,21 @@ import { jwtDecode } from 'jwt-decode';
 import { DecodedTokenI } from '@/interfaces/decodedtoken';
 
 export default async function OrdersPage() {
+  const token = await getUserToken();
+  if (!token) {
+    redirect('/login');
+  }
+
   let orders: Order[] = [];
 
   try {
-    const token = await getUserToken();
     const decoded = jwtDecode<DecodedTokenI>(token);
     const userId = decoded.id;
-    
-
 
     const ordersData = await getUserOrders(userId);
     orders = ordersData || [];
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 
   const formatDate = (dateString: string) => {
@@ -58,9 +61,9 @@ export default async function OrdersPage() {
   const isEmpty = orders.length === 0;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background text-foreground transition-colors">
       {/* Header */}
-      <header className="bg-black p-12">
+      <header className="bg-black dark:bg-neutral-900 p-12 border-b border-border">
         <div className="container mx-auto px-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -78,12 +81,12 @@ export default async function OrdersPage() {
       <main className="container mx-auto px-5 py-12">
         {isEmpty ? (
           <section className="flex flex-col items-center justify-center py-20">
-            <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-              <Package className="w-16 h-16 text-gray-400" />
+            <div className="w-32 h-32 bg-muted rounded-full flex items-center justify-center mb-6">
+              <Package className="w-16 h-16 text-muted-foreground" />
             </div>
             <h2 className="text-3xl font-bold mb-4">No Orders Yet</h2>
-            <p className="text-gray-600 text-lg mb-8">Start shopping to see your orders here!</p>
-            <Button asChild size="lg">
+            <p className="text-muted-foreground text-lg mb-8">Start shopping to see your orders here!</p>
+            <Button asChild size="lg" className="rounded-full">
               <Link href="/products">Browse Products</Link>
             </Button>
           </section>
@@ -94,8 +97,8 @@ export default async function OrdersPage() {
               const StatusIcon = status.icon;
 
               return (
-                <Card key={order._id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <CardHeader className="bg-gray-50">
+                <Card key={order._id} className="overflow-hidden hover:shadow-lg transition-shadow border-border">
+                  <CardHeader className="bg-muted/40">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                       <div className="space-y-2">
                         <div className="flex items-center gap-3">
@@ -105,7 +108,7 @@ export default async function OrdersPage() {
                             {status.label}
                           </Badge>
                         </div>
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+                        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                           <div className="flex items-center gap-2">
                             <Calendar className="w-4 h-4" />
                             <span>{formatDate(order.createdAt)}</span>
@@ -122,7 +125,7 @@ export default async function OrdersPage() {
                       </div>
 
                       <div className="text-right">
-                        <div className="text-sm text-gray-600 mb-1">Total Amount</div>
+                        <div className="text-sm text-muted-foreground mb-1">Total Amount</div>
                         <div className="text-2xl font-bold">EGP {order.totalOrderPrice.toFixed(2)}</div>
                       </div>
                     </div>
@@ -149,9 +152,9 @@ export default async function OrdersPage() {
                                 {item.product.title}
                               </h3>
                             </Link>
-                            <p className="text-sm text-gray-600">{item.product.brand.name}</p>
+                            <p className="text-sm text-muted-foreground">{item.product.brand.name}</p>
                             <div className="flex items-center gap-4 mt-2">
-                              <span className="text-sm text-gray-600">Qty: {item.count}</span>
+                              <span className="text-sm text-muted-foreground">Qty: {item.count}</span>
                               <span className="font-semibold">EGP {item.price.toFixed(2)}</span>
                             </div>
                           </div>
@@ -162,21 +165,21 @@ export default async function OrdersPage() {
                     <Separator className="my-4" />
 
                     {/* Shipping Address */}
-                    <div className="bg-gray-50 p-4 rounded-lg">
+                    <div className="bg-muted/40 p-4 rounded-lg">
                       <div className="flex items-start gap-2">
-                        <MapPin className="w-5 h-5 text-gray-600 mt-0.5" />
+                        <MapPin className="w-5 h-5 text-muted-foreground mt-0.5" />
                         <div>
                           <h4 className="font-semibold mb-1">Shipping Address</h4>
-                          <p className="text-sm text-gray-600">{order.shippingAddress.details}</p>
-                          <p className="text-sm text-gray-600">{order.shippingAddress.city}</p>
-                          <p className="text-sm text-gray-600">{order.shippingAddress.phone}</p>
+                          <p className="text-sm text-muted-foreground">{order.shippingAddress.details}</p>
+                          <p className="text-sm text-muted-foreground">{order.shippingAddress.city}</p>
+                          <p className="text-sm text-muted-foreground">{order.shippingAddress.phone}</p>
                         </div>
                       </div>
                     </div>
                   </CardContent>
 
-                  <CardFooter className="bg-gray-50 flex justify-between items-center">
-                    <div className="text-sm text-gray-600">
+                  <CardFooter className="bg-muted/30 flex justify-between items-center">
+                    <div className="text-sm text-muted-foreground">
                       {order.cartItems.length} {order.cartItems.length === 1 ? 'item' : 'items'}
                     </div>
                   </CardFooter>

@@ -25,11 +25,11 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Params } from 'next/dist/server/request/params';
+
 import AddCartButton from '@/components/products/addToCartBtn';
 import AddWishlistButton from '@/components/products/addToWishlistBtn';
 
-export default async function ProductDetails({ params }: { params: Promise<Params> }) {
+export default async function ProductDetails({ params }: { params: Promise<{ productId: string }> }) {
     const { productId } = await params
     
 

@@ -6,12 +6,12 @@ import { BrandItemI } from '@/interfaces/branditem';
 import { ProductI } from '@/interfaces/product';
 import { getProducts, getSpecificBrand } from '@/services/productServices';
 import { Package, Star, StarHalf } from 'lucide-react';
-import { Params } from 'next/dist/server/request/params'
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
-export default async function BrandItem({ params }: { params: Promise<Params> }) {
+export default async function BrandItem({ params }: { params: Promise<{ brandId: string }> }) {
 
     const { brandId } = await params
     

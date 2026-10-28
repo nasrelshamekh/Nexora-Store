@@ -6,12 +6,12 @@ import { CategoryItemI } from '@/interfaces/categoryitem';
 import { ProductI } from '@/interfaces/product';
 import { getProducts, getSpecificCategory } from '@/services/productServices';
 import { Package, Star, StarHalf } from 'lucide-react';
-import { Params } from 'next/dist/server/request/params'
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
-export default async function CategoryItem({ params }: { params: Promise<Params> }) {
+export default async function CategoryItem({ params }: { params: Promise<{ categoryId: string }> }) {
 
     const { categoryId } = await params
     

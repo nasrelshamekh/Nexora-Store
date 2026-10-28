@@ -1,5 +1,3 @@
-import { ParamValue } from "next/dist/server/request/params";
-
 export async function getProducts() {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/products`, {
         method: "GET"
@@ -9,7 +7,7 @@ export async function getProducts() {
     return data
 }
 
-export async function getSpecificProduct(id: ParamValue) {
+export async function getSpecificProduct(id: string) {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/products/${id}`, {
         method: "GET"
     })
@@ -36,22 +34,20 @@ export async function getAllBrands() {
     return data
 }
 
-export async function getSpecificBrand(brandId: ParamValue) {
+export async function getSpecificBrand(brandId: string) {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/brands/${brandId}`, {
         method: "GET"
     })
     const data = await response.json()
 
-
     return data
 }
 
-export async function getSpecificCategory(categoryId: ParamValue) {
+export async function getSpecificCategory(categoryId: string) {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/categories/${categoryId}`, {
         method: "GET"
     })
     const data = await response.json()
-
 
     return data
 }
@@ -64,4 +60,3 @@ export async function getAllSubCategories() {
 
     return data
 }
-

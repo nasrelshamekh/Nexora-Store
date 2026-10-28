@@ -3,7 +3,7 @@ import { getLoggedUserWishlist } from '@/actions/wishlist.action';
 import { WishlistContextI } from '@/interfaces/wishlistcontext';
 import { WishlistResponseI } from '@/interfaces/wishlistresponse';
 import { useSession } from 'next-auth/react';
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useEffect, useState } from 'react'
 
 export const wishlistContext = createContext<WishlistContextI>({
     count: 0,
@@ -16,7 +16,7 @@ export default function WishlistContextProvider({ children }: { children: React.
     const [isLoadingWishlist, setIsLoadingWishlist] = useState(false)
     const { data: session, status } = useSession()
 
-    async function handleWishlist() {
+    const handleWishlist = useCallback(async () => {
         if (status === "unauthenticated" || !session) {
             setCount(0)
             return
@@ -32,13 +32,13 @@ export default function WishlistContextProvider({ children }: { children: React.
         } finally {
             setIsLoadingWishlist(false)
         }
-    }
+    }, [status, session])
 
     useEffect(() => {
         if (status !== "loading") {
             handleWishlist()
         }
-    }, [status])
+    }, [status, handleWishlist])
 
     return (
         <wishlistContext.Provider value={{ count, handleWishlist, isLoadingWishlist }}>

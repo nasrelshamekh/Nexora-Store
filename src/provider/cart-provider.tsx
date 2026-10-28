@@ -3,7 +3,7 @@ import { getLoggedUserCart } from '@/actions/cart.action';
 import { CartI } from '@/interfaces/cart';
 import { CartContextI } from '@/interfaces/cartcontext';
 import { useSession } from 'next-auth/react';
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useEffect, useState } from 'react'
 
 export const cartContext = createContext<CartContextI>({
     noOfCartItems: 0,
@@ -16,7 +16,7 @@ export default function CartContextProvider({ children }: { children: React.Reac
     const [isLoading, setIsLoading] = useState(false)
     const { data: session, status } = useSession()
 
-    async function handleCart() {
+    const handleCart = useCallback(async () => {
         if (status === "unauthenticated" || !session) {
             setNoOfCartItems(0)
             return
@@ -33,13 +33,13 @@ export default function CartContextProvider({ children }: { children: React.Reac
         } finally {
             setIsLoading(false)
         }
-    }
+    }, [status, session])
 
     useEffect(() => {
         if (status !== "loading") {
             handleCart()
         }
-    }, [status])
+    }, [status, handleCart])
 
     return (
         <cartContext.Provider value={{ noOfCartItems, handleCart, isLoading }}>

@@ -137,3 +137,24 @@ Every step has been isolated into its own atomic commit and pushed to GitHub.
   - Created `docs/AUDIT_AND_FIXES.md` in repository.
   - Rewrote root `README.md` into a production-grade showcase with badges, architecture overview, feature list, and developer instructions.
   - Added open-source `LICENSE` (MIT).
+
+---
+
+### Step 8: Vercel CI/CD Build Remediation & Type Safety Alignment
+- **Commit**: `fix(build): resolve token type narrowing in orders, decouple private dist imports, and memoize context handlers`
+- **Root Cause**:
+  - `src/app/(pages)/allorders/page.tsx`: `getUserToken()` returns `string | undefined`. Passing it into `jwtDecode<DecodedTokenI>(token)` without narrowing triggered a fatal TypeScript compiler error on Vercel: `Type 'undefined' is not assignable to type 'string'`.
+  - `src/services/productServices.ts`, `brands/[brandId]/page.tsx`, `categories/[categoryId]/page.tsx`, `products/[productId]/page.tsx`: Imported internal private Next.js modules (`next/dist/server/request/params`).
+  - `cart-provider.tsx` and `wishlist-provider.tsx`: `useEffect` hooks called unmemoized `handleCart` and `handleWishlist` functions, causing ESLint `react-hooks/exhaustive-deps` warnings during CI/CD.
+- **Remediation**:
+  - Added strict null check and `redirect('/login')` for unauthenticated sessions in `allorders/page.tsx` before decoding token.
+  - Decoupled all routes and services from `next/dist/server/request/params`, utilizing standard Next.js 15 typed params `Promise<{ [key]: string }>`.
+  - Wrapped `handleCart` and `handleWishlist` in `useCallback` with complete dependency arrays.
+- **Files Modified**:
+  - `src/app/(pages)/allorders/page.tsx`
+  - `src/services/productServices.ts`
+  - `src/app/(pages)/brands/[brandId]/page.tsx`
+  - `src/app/(pages)/categories/[categoryId]/page.tsx`
+  - `src/app/(pages)/products/[productId]/page.tsx`
+  - `src/provider/cart-provider.tsx`
+  - `src/provider/wishlist-provider.tsx`
