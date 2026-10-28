@@ -17,6 +17,7 @@ import { Spinner } from "../ui/spinner"
 import { checkoutUser } from "@/actions/cart.action"
 import { CheckoutFormValues, checkoutSchema } from "@/schema/checkout.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { toast } from "sonner"
 
 export function Checkout({ cartId }: { cartId: string }) {
     const form = useForm<CheckoutFormValues>({
@@ -31,9 +32,16 @@ export function Checkout({ cartId }: { cartId: string }) {
     })
 
     async function handleCheckout(values: CheckoutFormValues) {
-        const response = await checkoutUser(values, cartId)
-        if (response.status == "success") {
-            window.location.href = response.session.url
+        try {
+            const origin = typeof window !== "undefined" ? window.location.origin : undefined
+            const response = await checkoutUser(values, cartId, origin)
+            if (response.status == "success" && response.session?.url) {
+                window.location.href = response.session.url
+            } else {
+                toast.error(response.message || "Failed to initiate payment session", { position: "top-center" })
+            }
+        } catch (error) {
+            toast.error((error as Error).message || "Checkout session error", { position: "top-center" })
         }
     }
 
@@ -90,6 +98,7 @@ export function Checkout({ cartId }: { cartId: string }) {
                                 </FormItem>
                             )}
                         />
+
 
 
 

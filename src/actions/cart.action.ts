@@ -1,6 +1,7 @@
 "use server"
 import { getUserToken } from "@/lib/auth"
 import { CheckoutFormValues } from "@/schema/checkout.schema"
+import { headers } from "next/headers"
 
 export async function addToCart(productId: string) {
     const token = await getUserToken()
@@ -83,12 +84,20 @@ export async function clearUserCart() {
     return data
 }
 
-export async function checkoutUser(formData: CheckoutFormValues, cartId: string) {
+export async function checkoutUser(formData: CheckoutFormValues, cartId: string, origin?: string) {
     const token = await getUserToken()
     if(!token) {
         throw new Error("You are not authorized to do this action")
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/orders/checkout-session/${cartId}?url=https://nexora-app-mu.vercel.app/`, {
+    let returnUrl = origin
+    if (!returnUrl) {
+        const headerList = await headers()
+        const host = headerList.get("host") || "localhost:3000"
+        const proto = headerList.get("x-forwarded-proto") || (host.includes("localhost") ? "http" : "https")
+        returnUrl = `${proto}://${host}`
+    }
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/orders/checkout-session/${cartId}?url=${encodeURIComponent(returnUrl)}`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
