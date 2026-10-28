@@ -9,23 +9,39 @@ export async function middleware(request: NextRequest) {
     })
     const { pathname } = request.nextUrl
 
-    const authPages = pathname == "/login" || pathname == "/register" || pathname == "/forgotpassword" || pathname == "/verifycode" || pathname == "/resetpassword"
-    const loggedInPages = pathname == "/allorders" || pathname == "/changepassword" || pathname == "/cart" || pathname == "/wishlist"
+    const authPages =
+        pathname === "/login" ||
+        pathname === "/register" ||
+        pathname === "/forgotpassword" ||
+        pathname === "/verifycode" ||
+        pathname === "/resetpassword"
+
+    const protectedPages =
+        pathname === "/allorders" ||
+        pathname === "/changepassword" ||
+        pathname === "/cart" ||
+        pathname === "/wishlist"
 
     if (token && authPages) {
         return NextResponse.redirect(new URL("/", request.url))
     }
-    if (!token && !authPages) {
-        return NextResponse.redirect(new URL("/login", request.url))
-    }
-    if (!token && loggedInPages) {
+    if (!token && protectedPages) {
         return NextResponse.redirect(new URL("/login", request.url))
     }
 
     return NextResponse.next()
-
 }
 
 export const config = {
-    matcher: ["/cart", "/login", "/register", "/allorders", "/changepassword", "/forgotpassword", "/verifycode", "/resetpassword", "/wishlist"]
+    matcher: [
+        "/cart",
+        "/login",
+        "/register",
+        "/allorders",
+        "/changepassword",
+        "/forgotpassword",
+        "/verifycode",
+        "/resetpassword",
+        "/wishlist"
+    ]
 }
