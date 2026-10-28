@@ -11,7 +11,7 @@ export const wishlistContext = createContext<WishlistContextI>({
     isLoadingWishlist: false
 })
 
-export default function CartContextProvider({ children }: { children: React.ReactNode }) {
+export default function WishlistContextProvider({ children }: { children: React.ReactNode }) {
     const [count, setCount] = useState(0);
     const [isLoadingWishlist, setIsLoadingWishlist] = useState(false)
     const { data: session, status } = useSession()

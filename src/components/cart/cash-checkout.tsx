@@ -35,101 +35,98 @@ export function CashCheckout({ cartId }: { cartId: string }) {
     })
 
     async function handleCashCheckout(values: CheckoutFormValues) {
-        const response = await checkoutCashUser(values, cartId)
-        if (response.status == "success") {
-            window.location.href = "/allorders"
-            toast.success("Order has been placed", { position: "top-center" })
-            handleCart()
-
+        try {
+            const response = await checkoutCashUser(values, cartId)
+            if (response.status === "success") {
+                toast.success("Order has been placed successfully!", { position: "top-center" })
+                handleCart()
+                window.location.href = "/allorders"
+            } else {
+                toast.error(response.message || "Failed to place cash order", { position: "top-center" })
+            }
+        } catch (error) {
+            toast.error((error as Error).message || "Error placing order", { position: "top-center" })
         }
     }
 
     return (
         <Dialog>
-            <form>
-                <DialogTrigger asChild>
-                    <Button size="lg" className="w-full rounded-full text-lg py-7 font-semibold bg-black hover:bg-gray-900 cursor-pointer">
-                        Proceed to Cash Checkout
-                    </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Checkout</DialogTitle>
-                        <DialogDescription>
-                            Fill in the following fields to proceed.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(handleCashCheckout)} className="space-y-4">
+            <DialogTrigger asChild>
+                <Button size="lg" className="w-full rounded-full text-lg py-7 font-semibold bg-black hover:bg-gray-900 cursor-pointer">
+                    Proceed to Cash Checkout
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                    <DialogTitle>Checkout</DialogTitle>
+                    <DialogDescription>
+                        Fill in the following fields to proceed.
+                    </DialogDescription>
+                </DialogHeader>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(handleCashCheckout)} className="space-y-4">
 
+                        <FormField
+                            control={form.control}
+                            name="shippingAddress.details"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Details</FormLabel>
+                                    <FormControl>
+                                        <Input type="text" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                            <FormField
-                                control={form.control}
-                                name="shippingAddress.details"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Details</FormLabel>
-                                        <FormControl>
-                                            <Input type="text" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                        <FormField
+                            control={form.control}
+                            name="shippingAddress.city"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>City</FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Input
+                                                type="text"
+                                                {...field}
+                                            />
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
+                        <FormField
+                            control={form.control}
+                            name="shippingAddress.phone"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Phone</FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Input
+                                                type="tel"
+                                                {...field}
+                                            />
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-
-
-                            <FormField
-                                control={form.control}
-                                name="shippingAddress.city"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>City</FormLabel>
-                                        <FormControl>
-                                            <div className="relative">
-                                                <Input
-                                                    type="text"
-                                                    {...field}
-                                                />
-                                            </div>
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-
-
-
-                            <FormField
-                                control={form.control}
-                                name="shippingAddress.phone"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Phone</FormLabel>
-                                        <FormControl>
-                                            <div className="relative">
-                                                <Input
-                                                    type="tel"
-                                                    {...field}
-                                                />
-                                            </div>
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-
-                            <DialogFooter>
-                                <DialogClose asChild>
-                                    <Button className="cursor-pointer" variant="outline">Cancel</Button>
-                                </DialogClose>
-                                <Button type="submit" className="cursor-pointer">{form.formState.isSubmitting ? <Spinner /> : "Checkout"}</Button>
-                            </DialogFooter>
-                        </form>
-                    </Form>
-                </DialogContent>
-            </form>
+                        <DialogFooter>
+                            <DialogClose asChild>
+                                <Button className="cursor-pointer" variant="outline">Cancel</Button>
+                            </DialogClose>
+                            <Button type="submit" className="cursor-pointer">{form.formState.isSubmitting ? <Spinner /> : "Checkout"}</Button>
+                        </DialogFooter>
+                    </form>
+                </Form>
+            </DialogContent>
         </Dialog>
     )
 }

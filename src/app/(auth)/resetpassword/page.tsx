@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, Suspense } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
@@ -17,8 +17,7 @@ import { Eye, EyeOff } from "lucide-react"
 import { resetPasswordFormType, resetPasswordSchema } from "@/schema/reset-password.schema"
 import Link from "next/link"
 
-
-export default function ResetPassword() {
+function ResetPasswordContent() {
     const [showPassword, setShowPassword] = useState(false)
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -40,7 +39,6 @@ export default function ResetPassword() {
                 toast.error(data.message || "Failed to reset password", { position: "top-center" })
             }
         } catch (error) {
-
             toast.error((error as Error)?.message || "Failed to reset password", { position: "top-center" })
         }
     }
@@ -59,7 +57,7 @@ export default function ResetPassword() {
                     <div className="text-center">
                         <CardTitle className="text-2xl md:text-3xl">Reset Password</CardTitle>
                         <CardDescription className="mt-2">
-                            Enter your new password for <span className="font-semibold">{email}</span>
+                            Enter your new password for <span className="font-semibold">{email || "your account"}</span>
                         </CardDescription>
                     </div>
                 </CardHeader>
@@ -108,7 +106,6 @@ export default function ResetPassword() {
 
                     <div className="text-center text-sm pt-2">
                         <Link
-
                             href="/login"
                             className="text-gray-600 font-semibold hover:underline cursor-pointer"
                         >
@@ -118,5 +115,13 @@ export default function ResetPassword() {
                 </CardContent>
             </Card>
         </main>
+    )
+}
+
+export default function ResetPassword() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Spinner className="size-10" /></div>}>
+            <ResetPasswordContent />
+        </Suspense>
     )
 }

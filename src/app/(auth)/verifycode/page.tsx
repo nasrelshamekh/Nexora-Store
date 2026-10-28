@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, Suspense } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
@@ -15,12 +15,10 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { VerifyCodeFormType, verifyCodeSchema } from "@/schema/verify-code.schema"
 import Link from "next/link"
 
-
-export default function VerifyCode() {
+function VerifyCodeContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const email = searchParams.get("email") // email passed from forgot password page
-
+  const email = searchParams.get("email")
 
   const form = useForm<VerifyCodeFormType>({
     resolver: zodResolver(verifyCodeSchema),
@@ -28,8 +26,13 @@ export default function VerifyCode() {
     defaultValues: { resetCode: "" },
   })
 
+  useEffect(() => {
+    if (!email) {
+      router.push("/forgotpassword")
+    }
+  }, [email, router])
+
   if (!email) {
-    router.push("/forgotpassword")
     return null
   }
 
@@ -77,7 +80,7 @@ export default function VerifyCode() {
                   <FormItem>
                     <FormLabel>Verification Code</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your code" {...field} />
+                      <Input placeholder="Enter your 6-digit code" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -92,7 +95,6 @@ export default function VerifyCode() {
 
           <div className="text-center text-sm pt-2">
             <Link
-              
               href="/forgotpassword"
               className="text-gray-600 font-semibold hover:underline cursor-pointer"
             >
@@ -102,5 +104,13 @@ export default function VerifyCode() {
         </CardContent>
       </Card>
     </main>
+  )
+}
+
+export default function VerifyCode() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Spinner className="size-10" /></div>}>
+      <VerifyCodeContent />
+    </Suspense>
   )
 }
