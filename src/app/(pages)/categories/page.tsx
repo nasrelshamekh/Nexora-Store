@@ -19,7 +19,7 @@ export default async function Categories() {
             {categories.map((category: allCategoriesI, index) => {
               return <React.Fragment key={category._id}>
                 <Card className="flex flex-col h-full hover:shadow-lg transition-shadow">
-                  <Link href={`categories/${category._id}`} className="flex-1">
+                  <Link href={`/categories/${category._id}`} className="flex-1">
                     <div className="relative w-full aspect-square overflow-hidden rounded-t-lg mb-4">
                       <Image
                         fill

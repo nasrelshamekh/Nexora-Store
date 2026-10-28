@@ -20,7 +20,7 @@ export default async function Brands() {
             {brands.map((brand: BrandsI, index) => {
               return <React.Fragment key={brand._id}>
                 <Card className="flex flex-col h-full hover:shadow-lg transition-shadow">
-                  <Link href={`brands/${brand._id}`} className="flex-1">
+                  <Link href={`/brands/${brand._id}`} className="flex-1">
                     <div className="relative w-full aspect-square overflow-hidden rounded-t-lg mb-4">
                       <Image
                         width={500}

@@ -97,7 +97,7 @@ export default async function Home() {
             {randomProducts.map((product) => (
               <div key={product.id} className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all transform hover:scale-105 overflow-hidden">
                 <Card className="flex flex-col h-full hover:shadow-lg transition-shadow">
-                  <Link href={`products/${product._id}`} className="flex-1">
+                  <Link href={`/products/${product._id}`} className="flex-1">
                     <div className="relative w-full aspect-square overflow-hidden rounded-t-lg mb-4">
                       <Image
                         fill

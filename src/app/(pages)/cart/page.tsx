@@ -129,14 +129,14 @@ export default function Cart() {
 
                 <div className="flex justify-between items-baseline">
                   <span className="text-2xl font-bold">Total</span>
-                  <span className="text-3xl font-bold"></span>
+                  <span className="text-3xl font-bold">EGP {cartData?.totalCartPrice ?? 0}</span>
                 </div>
 
                 <div className="space-y-3">
                   {cart && <Checkout cartId={cart?.cartId}/>}
                   {cart && <CashCheckout cartId={cart?.cartId}/>}
-                  <Button variant="outline" size="lg" className="w-full rounded-full text-lg py-6 cursor-pointer">
-                    Continue Shopping
+                  <Button asChild variant="outline" size="lg" className="w-full rounded-full text-lg py-6 cursor-pointer">
+                    <Link href="/products">Continue Shopping</Link>
                   </Button>
                 </div>
 

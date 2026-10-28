@@ -42,7 +42,7 @@ export default async function Products() {
             {products.map((product: ProductI, index) => {
               return <React.Fragment key={product._id}>
                 <Card className="flex flex-col h-full hover:shadow-lg transition-shadow">
-                  <Link href={`products/${product._id}`} className="flex-1">
+                  <Link href={`/products/${product._id}`} className="flex-1">
                     <div className="relative w-full aspect-square overflow-hidden rounded-t-lg mb-4">
                       <Image
                         fill
