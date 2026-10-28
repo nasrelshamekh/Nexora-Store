@@ -2,9 +2,9 @@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Eye, EyeOff } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { NexoraLogo } from '@/components/common/logo'
+import { Eye, EyeOff, ArrowRight } from 'lucide-react'
 import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Link from 'next/link'
@@ -34,12 +34,10 @@ export default function Login() {
   })
 
   async function handleLogin(values: loginSchemaType) {
-    
     const response = await signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false,
-      
     })
 
     if (response?.ok) {
@@ -48,27 +46,29 @@ export default function Login() {
       handleCart()
       handleWishlist()
     } else {
-      toast.error(response?.error, { position: 'top-center', duration: 3000 })
+      toast.error(response?.error || "Invalid credentials", { position: 'top-center', duration: 3000 })
     }
-    
-
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-4">
+    <main className="min-h-screen flex items-center justify-center bg-background text-foreground transition-colors px-4 py-16 relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+
+      <Card className="w-full max-w-md rounded-3xl border border-border/80 bg-card/90 backdrop-blur-md shadow-2xl relative z-10 overflow-hidden">
+        <CardHeader className="space-y-3 pb-6 text-center">
           {/* Logo */}
-          <div className="flex justify-center items-center gap-3">
-            <Avatar className="rounded-lg font-bold bg-black text-white size-10">
-              <AvatarFallback>N</AvatarFallback>
-            </Avatar>
-            <span className="font-bold text-2xl">Nexora</span>
-          </div>
+          <Link href="/" className="inline-flex justify-center items-center gap-2.5 mx-auto">
+            <NexoraLogo size={42} withGlow className="shadow-lg shadow-purple-500/25" />
+            <span className="font-extrabold text-2xl tracking-tight">Nexora</span>
+          </Link>
 
           {/* Title */}
-          <div className="text-center">
-            <CardTitle className="text-2xl md:text-3xl">Login to your account</CardTitle>
+          <div>
+            <CardTitle className="text-2xl font-extrabold tracking-tight">Welcome back</CardTitle>
+            <CardDescription className="text-xs text-muted-foreground mt-1">
+              Sign in to access your cart, saved wishlist, and orders
+            </CardDescription>
           </div>
         </CardHeader>
 
@@ -82,16 +82,19 @@ export default function Login() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel className="text-xs font-semibold">Email Address</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="Email" {...field} />
+                      <Input
+                        type="email"
+                        placeholder="you@example.com"
+                        className="rounded-xl h-11 text-sm bg-background/50 border-border/70"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-xs" />
                   </FormItem>
                 )}
               />
-
-
 
               {/* Password */}
               <FormField
@@ -99,48 +102,64 @@ export default function Login() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <div className="flex items-center justify-between">
+                      <FormLabel className="text-xs font-semibold">Password</FormLabel>
+                      <Link
+                        href="/forgotpassword"
+                        className="text-xs text-primary hover:underline font-medium"
+                      >
+                        Forgot password?
+                      </Link>
+                    </div>
                     <FormControl>
                       <div className="relative">
                         <Input
                           type={showPassword ? "text" : "password"}
-                          placeholder="Password"
+                          placeholder="••••••••"
+                          className="rounded-xl h-11 text-sm bg-background/50 border-border/70 pr-10"
                           {...field}
                         />
                         <Button
                           type="button"
                           variant="ghost"
                           size="icon"
-                          className="absolute right-0 top-0 h-full px-3"
+                          className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground hover:text-foreground cursor-pointer"
                           onClick={() => setShowPassword(!showPassword)}
                         >
                           {showPassword ? (
-                            <EyeOff className="h-4 w-4 text-gray-500" />
+                            <EyeOff className="h-4 w-4" />
                           ) : (
-                            <Eye className="h-4 w-4 text-gray-500" />
+                            <Eye className="h-4 w-4" />
                           )}
                         </Button>
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-xs" />
                   </FormItem>
                 )}
               />
+
               {/* Submit Button */}
-              <Button type="submit" className="w-full cursor-pointer" size="lg">
-                {form.formState.isSubmitting ? <Spinner /> : "Login"}
+              <Button
+                type="submit"
+                disabled={form.formState.isSubmitting}
+                className="w-full rounded-xl h-11 text-sm font-semibold shadow-md shadow-primary/20 hover:shadow-primary/30 transition-all cursor-pointer mt-2"
+                size="lg"
+              >
+                {form.formState.isSubmitting ? (
+                  <Spinner className="w-4 h-4" />
+                ) : (
+                  <span className="inline-flex items-center gap-1.5">
+                    Sign In <ArrowRight className="w-4 h-4" />
+                  </span>
+                )}
               </Button>
 
-              {/* Login Link */}
-              <div className="text-center text-sm pt-2">
-                <span className="text-gray-600">Don&apos;t have an account? </span>
-                <Link href="/register" className="font-semibold hover:underline cursor-pointer">
-                  Sign up
-                </Link>
-              </div>
-              <div className="text-center text-sm pt-2">
-                <Link href="/forgotpassword" className="font-semibold hover:underline cursor-pointer">
-                  <span className="text-gray-600">Forgot your password? </span>
+              {/* Register Link */}
+              <div className="text-center text-xs text-muted-foreground pt-4 border-t border-border/60">
+                Don&apos;t have an account?{' '}
+                <Link href="/register" className="font-semibold text-primary hover:underline cursor-pointer">
+                  Create one now
                 </Link>
               </div>
             </form>

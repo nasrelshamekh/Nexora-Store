@@ -8,7 +8,6 @@ import { toast } from 'sonner'
 import { cartContext } from '@/provider/cart-provider'
 import { useRouter } from 'next/navigation'
 
-
 export default function AddCartButton({ prodId }: { prodId: string }) {
     const router = useRouter()
 
@@ -20,28 +19,32 @@ export default function AddCartButton({ prodId }: { prodId: string }) {
             setIsLoading(true)
             const response = await addToCart(productId)
             
-            if (response.status == "success") {
+            if (response.status === "success") {
                 toast.success(response.message, { position: "top-center" })
             }
             handleCart()
         } catch (error) {
-            
             toast.error((error as Error).message, { position: "top-center" })
             router.push("/login")
         } finally {
             setIsLoading(false)
         }
-
     }
 
     return (
-        <>
-            <Button disabled={isLoading} onClick={() => { addProductToCart(prodId) }} className='grow cursor-pointer h-12'>
-                {isLoading ? <Spinner /> : <>
-                    <ShoppingCart className='size-5' />
-                    <span className='text-[16px]'>Add To Cart</span>
-                </>}
-            </Button>
-        </>
+        <Button 
+            disabled={isLoading} 
+            onClick={() => { addProductToCart(prodId) }} 
+            className="w-full grow cursor-pointer h-10 sm:h-11 rounded-xl font-semibold shadow-sm hover:shadow-md transition-all gap-2 text-xs sm:text-sm"
+        >
+            {isLoading ? (
+                <Spinner className="w-4 h-4" />
+            ) : (
+                <>
+                    <ShoppingCart className="w-4 h-4" />
+                    <span>Add To Cart</span>
+                </>
+            )}
+        </Button>
     )
 }

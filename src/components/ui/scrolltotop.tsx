@@ -31,12 +31,17 @@ export function ScrollToTopButton() {
 
   return (
     <div
-      className={`fixed bottom-4 right-4 z-50 transition-opacity duration-300 ${
+      className={`fixed bottom-6 right-6 z-50 transition-opacity duration-300 ${
         isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
-      <Button size="icon" onClick={scrollToTop} className="cursor-pointer">
-        <ChevronUp className="h-4 w-4" />
+      <Button
+        size="icon"
+        onClick={scrollToTop}
+        className="cursor-pointer rounded-full shadow-xl border border-border/60 hover:scale-110 active:scale-95 transition-all bg-card/90 backdrop-blur-md text-foreground hover:bg-primary hover:text-primary-foreground size-11"
+        aria-label="Scroll back to top"
+      >
+        <ChevronUp className="h-5 w-5" />
       </Button>
     </div>
   );

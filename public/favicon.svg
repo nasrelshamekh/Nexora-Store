@@ -1,0 +1,22 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="favBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A855F7" />
+      <stop offset="45%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#6D28D9" />
+    </linearGradient>
+    <linearGradient id="favN" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="60%" stop-color="#F5EDFF" />
+      <stop offset="100%" stop-color="#E0C8FE" />
+    </linearGradient>
+    <linearGradient id="favGloss" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="url(#favBg)" />
+  <rect x="1.5" y="1.5" width="61" height="30" rx="16.5" fill="url(#favGloss)" />
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="17.25" stroke="white" stroke-opacity="0.25" stroke-width="1.5" />
+  <path d="M20 45.5V18.5L44 45.5V18.5" stroke="url(#favN)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

@@ -12,116 +12,131 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Spinner } from "@/components/ui/spinner"
 import { toast } from "sonner"
 import { resetPassword } from "@/actions/password.action"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Eye, EyeOff } from "lucide-react"
+import { NexoraLogo } from "@/components/common/logo"
+import { Eye, EyeOff, ArrowLeft, ArrowRight } from "lucide-react"
 import { resetPasswordFormType, resetPasswordSchema } from "@/schema/reset-password.schema"
 import Link from "next/link"
 
 function ResetPasswordContent() {
-    const [showPassword, setShowPassword] = useState(false)
-    const router = useRouter()
-    const searchParams = useSearchParams()
-    const email = searchParams.get("email") || ""
+  const [showPassword, setShowPassword] = useState(false)
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const email = searchParams.get("email") || ""
 
-    const form = useForm<resetPasswordFormType>({
-        resolver: zodResolver(resetPasswordSchema),
-        mode: "onTouched",
-        defaultValues: { newPassword: "" },
-    })
+  const form = useForm<resetPasswordFormType>({
+    resolver: zodResolver(resetPasswordSchema),
+    mode: "onTouched",
+    defaultValues: { newPassword: "" },
+  })
 
-    async function handleResetPassword(values: resetPasswordFormType) {
-        try {
-            const data = await resetPassword(email, values.newPassword)
-            if (data.token) {
-                toast.success("Password reset successfully!", { position: "top-center" })
-                router.push("/login")
-            } else {
-                toast.error(data.message || "Failed to reset password", { position: "top-center" })
-            }
-        } catch (error) {
-            toast.error((error as Error)?.message || "Failed to reset password", { position: "top-center" })
-        }
+  async function handleResetPassword(values: resetPasswordFormType) {
+    try {
+      const data = await resetPassword(email, values.newPassword)
+      if (data.token) {
+        toast.success("Password reset successfully! Please log in.", { position: "top-center" })
+        router.push("/login")
+      } else {
+        toast.error(data.message || "Failed to reset password", { position: "top-center" })
+      }
+    } catch (error) {
+      toast.error((error as Error)?.message || "Failed to reset password", { position: "top-center" })
     }
+  }
 
-    return (
-        <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
-            <Card className="w-full max-w-md">
-                <CardHeader className="space-y-4">
-                    <div className="flex justify-center items-center gap-3">
-                        <Avatar className="rounded-lg font-bold bg-black text-white size-10">
-                            <AvatarFallback>N</AvatarFallback>
-                        </Avatar>
-                        <span className="font-bold text-2xl">Nexora</span>
-                    </div>
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-background text-foreground transition-colors px-4 py-16 relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
-                    <div className="text-center">
-                        <CardTitle className="text-2xl md:text-3xl">Reset Password</CardTitle>
-                        <CardDescription className="mt-2">
-                            Enter your new password for <span className="font-semibold">{email || "your account"}</span>
-                        </CardDescription>
-                    </div>
-                </CardHeader>
+      <Card className="w-full max-w-md rounded-3xl border border-border/80 bg-card/90 backdrop-blur-md shadow-2xl relative z-10 overflow-hidden">
+        <CardHeader className="space-y-3 pb-6 text-center">
+          {/* Logo */}
+          <Link href="/" className="inline-flex justify-center items-center gap-2.5 mx-auto">
+            <NexoraLogo size={42} withGlow className="shadow-lg shadow-purple-500/25" />
+            <span className="font-extrabold text-2xl tracking-tight">Nexora</span>
+          </Link>
 
-                <CardContent>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(handleResetPassword)} className="space-y-4">
-                            <FormField
-                                control={form.control}
-                                name="newPassword"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>New Password</FormLabel>
-                                        <FormControl>
-                                            <div className="relative">
-                                                <Input
-                                                    type={showPassword ? 'text' : 'password'}
-                                                    placeholder="Password"
-                                                    {...field}
-                                                />
-                                                <Button
-                                                    type="button"
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="absolute right-0 top-0 h-full px-3"
-                                                    onClick={() => setShowPassword(!showPassword)}
-                                                >
-                                                    {showPassword ? (
-                                                        <EyeOff className="h-4 w-4 text-gray-500" />
-                                                    ) : (
-                                                        <Eye className="h-4 w-4 text-gray-500" />
-                                                    )}
-                                                </Button>
-                                            </div>
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+          {/* Title */}
+          <div>
+            <CardTitle className="text-2xl font-extrabold tracking-tight">Create new password</CardTitle>
+            <CardDescription className="text-xs text-muted-foreground mt-1">
+              Setting credentials for <span className="font-semibold text-foreground">{email || "your account"}</span>
+            </CardDescription>
+          </div>
+        </CardHeader>
 
-                            <Button type="submit" className="w-full cursor-pointer" size="lg">
-                                {form.formState.isSubmitting ? <Spinner /> : "Reset Password"}
-                            </Button>
-                        </form>
-                    </Form>
-
-                    <div className="text-center text-sm pt-2">
-                        <Link
-                            href="/login"
-                            className="text-gray-600 font-semibold hover:underline cursor-pointer"
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleResetPassword)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="newPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xs font-semibold">New Password</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? 'text' : 'password'}
+                          placeholder="••••••••"
+                          className="rounded-xl h-11 text-sm bg-background/50 border-border/70 pr-10"
+                          {...field}
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground hover:text-foreground cursor-pointer"
+                          onClick={() => setShowPassword(!showPassword)}
                         >
-                            Back to Login
-                        </Link>
-                    </div>
-                </CardContent>
-            </Card>
-        </main>
-    )
+                          {showPassword ? (
+                            <EyeOff className="h-4 w-4" />
+                          ) : (
+                            <Eye className="h-4 w-4" />
+                          )}
+                        </Button>
+                      </div>
+                    </FormControl>
+                    <FormMessage className="text-xs" />
+                  </FormItem>
+                )}
+              />
+
+              <Button
+                type="submit"
+                disabled={form.formState.isSubmitting}
+                className="w-full rounded-xl h-11 text-sm font-semibold shadow-md shadow-primary/20 hover:shadow-primary/30 transition-all cursor-pointer mt-2"
+                size="lg"
+              >
+                {form.formState.isSubmitting ? (
+                  <Spinner className="w-4 h-4" />
+                ) : (
+                  <span className="inline-flex items-center gap-1.5">
+                    Reset Password <ArrowRight className="w-4 h-4" />
+                  </span>
+                )}
+              </Button>
+            </form>
+          </Form>
+
+          <div className="text-center text-xs text-muted-foreground pt-4 mt-4 border-t border-border/60">
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" /> Back to Login
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+    </main>
+  )
 }
 
 export default function ResetPassword() {
-    return (
-        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Spinner className="size-10" /></div>}>
-            <ResetPasswordContent />
-        </Suspense>
-    )
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-background"><Spinner className="size-8" /></div>}>
+      <ResetPasswordContent />
+    </Suspense>
+  )
 }

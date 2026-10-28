@@ -27,7 +27,6 @@ export default function RemoveWishlistButton({ prodId }: { prodId: string }) {
                 handleWishlist()
             }
         } catch (error) {
-            
             toast.error((error as Error).message || "Failed to remove from wishlist", { 
                 position: "top-center" 
             })
@@ -46,12 +45,13 @@ export default function RemoveWishlistButton({ prodId }: { prodId: string }) {
             }}
             variant="ghost"
             size="icon"
-            className="bg-white hover:bg-red-50 rounded-full shadow-lg cursor-pointer"
+            className="size-8 rounded-full bg-background/90 backdrop-blur-md border border-border/70 text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 transition-colors shadow-sm cursor-pointer"
+            aria-label="Remove item from wishlist"
         >
             {isLoading ? (
-                <Spinner className="w-5 h-5" />
+                <Spinner className="w-3.5 h-3.5" />
             ) : (
-                <X className="w-5 h-5 text-gray-700 hover:text-red-600" />
+                <X className="w-3.5 h-3.5" />
             )}
         </Button>
     )

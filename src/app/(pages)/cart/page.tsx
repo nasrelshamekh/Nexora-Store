@@ -36,6 +36,7 @@ import { Spinner } from "@/components/ui/spinner"
 import { cartContext } from "@/provider/cart-provider"
 import { Checkout } from "@/components/cart/checkout"
 import { CashCheckout } from "@/components/cart/cash-checkout"
+import { NexoraLogo } from "@/components/common/logo"
 
 export default function Cart() {
   const [products, setProducts] = useState<CartProductI[]>([])
@@ -107,9 +108,7 @@ export default function Cart() {
     return (
       <main className="min-h-[75vh] flex flex-col items-center justify-center p-6 bg-background text-foreground">
         <div className="flex flex-col items-center space-y-4 max-w-sm text-center">
-          <div className="relative flex items-center justify-center w-16 h-16 rounded-2xl bg-black dark:bg-white text-white dark:text-black font-extrabold text-2xl shadow-xl shadow-black/10 dark:shadow-white/10 animate-pulse">
-            N
-          </div>
+          <NexoraLogo size={52} withGlow className="shadow-xl shadow-purple-500/25 animate-pulse" />
           <div className="space-y-1">
             <h2 className="text-xl font-bold tracking-tight">Nexora Store</h2>
             <p className="text-xs text-muted-foreground flex items-center justify-center gap-2">

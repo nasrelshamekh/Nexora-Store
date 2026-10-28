@@ -1,49 +1,53 @@
 import React from 'react'
 import Link from 'next/link'
-import { Facebook, Instagram, Twitter } from 'lucide-react'
+import { Facebook, Instagram, Twitter, ShieldCheck, Zap, Lock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import { NexoraLogo } from '@/components/common/logo'
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white py-16">
+    <footer className="border-t border-border/70 bg-card/50 backdrop-blur-md text-foreground py-16 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand & Social */}
-          <div>
-            <h4 className="text-2xl font-bold mb-6">Nexora Store</h4>
-            <p className="text-gray-400 mb-6 text-sm leading-relaxed">
+          <div className="space-y-4">
+            <Link href="/" className="inline-flex items-center gap-2.5">
+              <NexoraLogo size={36} className="shadow-md shadow-purple-500/20" />
+              <span className="font-extrabold text-2xl tracking-tight">Nexora</span>
+            </Link>
+            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
               Next-generation digital commerce experience connecting premium lifestyle, apparel, and electronics powered by Route Academy.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex items-center space-x-2.5 pt-2">
               <Button 
-                variant="secondary" 
+                variant="outline" 
                 size="icon" 
-                className="w-10 h-10 rounded-full bg-white text-black hover:bg-gray-200 cursor-pointer transition"
+                className="w-9 h-9 rounded-xl border-border/70 bg-card hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 cursor-pointer"
                 asChild
               >
                 <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                  <Facebook className="h-5 w-5" />
+                  <Facebook className="h-4 w-4" />
                 </Link>
               </Button>
               <Button 
-                variant="secondary" 
+                variant="outline" 
                 size="icon" 
-                className="w-10 h-10 rounded-full bg-white text-black hover:bg-gray-200 cursor-pointer transition"
+                className="w-9 h-9 rounded-xl border-border/70 bg-card hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 cursor-pointer"
                 asChild
               >
                 <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  <Instagram className="h-5 w-5" />
+                  <Instagram className="h-4 w-4" />
                 </Link>
               </Button>
               <Button 
-                variant="secondary" 
+                variant="outline" 
                 size="icon" 
-                className="w-10 h-10 rounded-full bg-white text-black hover:bg-gray-200 cursor-pointer transition"
+                className="w-9 h-9 rounded-xl border-border/70 bg-card hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 cursor-pointer"
                 asChild
               >
                 <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                  <Twitter className="h-5 w-5" />
+                  <Twitter className="h-4 w-4" />
                 </Link>
               </Button>
             </div>
@@ -51,91 +55,100 @@ export default function Footer() {
           
           {/* Catalog Navigation */}
           <div>
-            <h5 className="text-lg font-bold mb-6">Shop Catalog</h5>
-            <ul className="space-y-3">
+            <h5 className="text-sm font-bold uppercase tracking-wider text-foreground mb-4">Shop Catalog</h5>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <Button variant="link" className="text-gray-400 hover:text-white p-0 h-auto" asChild>
-                  <Link href="/products">All Products</Link>
-                </Button>
+                <Link href="/products" className="text-muted-foreground hover:text-foreground hover:underline transition-colors">
+                  All Products
+                </Link>
               </li>
               <li>
-                <Button variant="link" className="text-gray-400 hover:text-white p-0 h-auto" asChild>
-                  <Link href="/categories">Shop by Category</Link>
-                </Button>
+                <Link href="/categories" className="text-muted-foreground hover:text-foreground hover:underline transition-colors">
+                  Shop by Category
+                </Link>
               </li>
               <li>
-                <Button variant="link" className="text-gray-400 hover:text-white p-0 h-auto" asChild>
-                  <Link href="/brands">Curated Brands</Link>
-                </Button>
+                <Link href="/brands" className="text-muted-foreground hover:text-foreground hover:underline transition-colors">
+                  Curated Brands
+                </Link>
               </li>
               <li>
-                <Button variant="link" className="text-gray-400 hover:text-white p-0 h-auto" asChild>
-                  <Link href="/cart">Shopping Cart</Link>
-                </Button>
+                <Link href="/cart" className="text-muted-foreground hover:text-foreground hover:underline transition-colors">
+                  Shopping Cart
+                </Link>
               </li>
               <li>
-                <Button variant="link" className="text-gray-400 hover:text-white p-0 h-auto" asChild>
-                  <Link href="/wishlist">Saved Wishlist</Link>
-                </Button>
+                <Link href="/wishlist" className="text-muted-foreground hover:text-foreground hover:underline transition-colors">
+                  Saved Wishlist
+                </Link>
               </li>
             </ul>
           </div>
           
           {/* Account & Orders */}
           <div>
-            <h5 className="text-lg font-bold mb-6">Customer Hub</h5>
-            <ul className="space-y-3">
+            <h5 className="text-sm font-bold uppercase tracking-wider text-foreground mb-4">Customer Hub</h5>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <Button variant="link" className="text-gray-400 hover:text-white p-0 h-auto" asChild>
-                  <Link href="/allorders">Order History & Tracking</Link>
-                </Button>
+                <Link href="/allorders" className="text-muted-foreground hover:text-foreground hover:underline transition-colors">
+                  Order History & Tracking
+                </Link>
               </li>
               <li>
-                <Button variant="link" className="text-gray-400 hover:text-white p-0 h-auto" asChild>
-                  <Link href="/changepassword">Account Security</Link>
-                </Button>
+                <Link href="/changepassword" className="text-muted-foreground hover:text-foreground hover:underline transition-colors">
+                  Account Security
+                </Link>
               </li>
               <li>
-                <Button variant="link" className="text-gray-400 hover:text-white p-0 h-auto" asChild>
-                  <Link href="/login">Customer Sign In</Link>
-                </Button>
+                <Link href="/login" className="text-muted-foreground hover:text-foreground hover:underline transition-colors">
+                  Customer Sign In
+                </Link>
               </li>
               <li>
-                <Button variant="link" className="text-gray-400 hover:text-white p-0 h-auto" asChild>
-                  <Link href="/register">Register New Account</Link>
-                </Button>
+                <Link href="/register" className="text-muted-foreground hover:text-foreground hover:underline transition-colors">
+                  Register New Account
+                </Link>
               </li>
               <li>
-                <Button variant="link" className="text-gray-400 hover:text-white p-0 h-auto" asChild>
-                  <Link href="/forgotpassword">Reset Password</Link>
-                </Button>
+                <Link href="/forgotpassword" className="text-muted-foreground hover:text-foreground hover:underline transition-colors">
+                  Reset Password
+                </Link>
               </li>
             </ul>
           </div>
           
-          {/* Engineering & Credits */}
+          {/* Engineering & Trust */}
           <div>
-            <h5 className="text-lg font-bold mb-6">Architecture</h5>
-            <p className="text-sm text-gray-400 mb-4 leading-relaxed">
-              Engineered with Next.js 15 App Router, React 19, and Tailwind CSS v4. Integrated with Route Academy REST API.
+            <h5 className="text-sm font-bold uppercase tracking-wider text-foreground mb-4">Architecture</h5>
+            <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
+              Engineered with Next.js 15 App Router, React 19, and Tailwind CSS v4. Synchronized live with Route Academy REST backend.
             </p>
-            <div className="space-y-2 text-sm text-gray-400">
-              <p>• Fast Sub-Second Cart Sync</p>
-              <p>• COD & Stripe Card Channels</p>
-              <p>• NextAuth Secure JWT Sessions</p>
+            <div className="space-y-2 text-xs text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Zap className="w-3.5 h-3.5 text-primary" />
+                <span>Sub-Second Server Actions Sync</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Lock className="w-3.5 h-3.5 text-primary" />
+                <span>COD & Stripe Card Channels</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                <span>NextAuth Secure JWT Sessions</span>
+              </div>
             </div>
           </div>
         </div>
         
-        <Separator className="bg-gray-800 mb-8" />
+        <Separator className="border-border/60 mb-8" />
         
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm text-gray-400">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
           <p>&copy; 2026 Nexora Store • Engineered by Nasr Elshamekh</p>
-          <div className="flex space-x-6 text-sm">
-            <Link href="/products" className="hover:text-white transition">Catalog</Link>
-            <Link href="/categories" className="hover:text-white transition">Categories</Link>
-            <Link href="/brands" className="hover:text-white transition">Brands</Link>
-            <Link href="/allorders" className="hover:text-white transition">Orders</Link>
+          <div className="flex items-center space-x-6">
+            <Link href="/products" className="hover:text-foreground transition-colors">Catalog</Link>
+            <Link href="/categories" className="hover:text-foreground transition-colors">Categories</Link>
+            <Link href="/brands" className="hover:text-foreground transition-colors">Brands</Link>
+            <Link href="/allorders" className="hover:text-foreground transition-colors">Orders</Link>
           </div>
         </div>
       </div>
