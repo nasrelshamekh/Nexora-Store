@@ -6,10 +6,11 @@ import { addToCart } from '@/actions/cart.action'
 import { Spinner } from '../ui/spinner'
 import { toast } from 'sonner'
 import { cartContext } from '@/provider/cart-provider'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 
 export default function AddCartButton({ prodId }: { prodId: string }) {
+    const router = useRouter()
 
     const [isLoading, setIsLoading] = useState(false)
     const { handleCart } = useContext(cartContext)
@@ -26,7 +27,7 @@ export default function AddCartButton({ prodId }: { prodId: string }) {
         } catch (error) {
             
             toast.error((error as Error).message, { position: "top-center" })
-            redirect("/login")
+            router.push("/login")
         } finally {
             setIsLoading(false)
         }
