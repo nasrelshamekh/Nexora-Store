@@ -79,7 +79,13 @@ export default function CartItem({ product, setProducts }: { product: CartProduc
                         {/* Quantity Controls */}
                         <div className="flex items-center gap-3">
                             <Button disabled={isLoading}
-                                onClick={() => { updateProductCount(product.product._id, product.count - 1) }}
+                                onClick={() => {
+                                    if (product.count <= 1) {
+                                        deleteProduct(product.product._id);
+                                    } else {
+                                        updateProductCount(product.product._id, product.count - 1);
+                                    }
+                                }}
                                 variant="outline"
                                 size="icon"
                                 className="h-10 w-10 rounded-full border-gray-300 cursor-pointer hover:bg-accent disabled:bg-slate-400 disabled:cursor-not-allowed"

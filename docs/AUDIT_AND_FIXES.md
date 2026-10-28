@@ -107,8 +107,33 @@ Every step has been isolated into its own atomic commit and pushed to GitHub.
 
 ---
 
-### Step 6: Documentation & Showcase README
+### Step 6: UI Polish, Dark Mode Activation, Modern 404 & Cart Item Fix
+- **Commit**: `feat(ui): complete step 6 - dark mode, modern 404 page, footer routes, and cart decrement fix`
+- **Root Cause**:
+  - In `cart-item.tsx`, clicking the minus button when `count === 1` triggered `updateCartProductCount(id, 0)`. The Route Academy API rejects count: 0 with a 400 error rather than removing the item; it requires `removeProductFromCart(id)`.
+  - In `footer.tsx`, 11 links pointing to non-existent routes (`/mens`, `/womens`, `/returns`, etc.) caused 404 errors, and social links lacked security attributes.
+  - In `not-found.tsx`, the 404 error was an unstyled minimal string (`<div>Not Found 404</div>`).
+  - Dark mode was non-functional; `next-themes` was installed but never wrapped in root layout, and no toggle existed in the UI.
+- **Remediation**:
+  - Updated `cart-item.tsx` so decrementing when `count <= 1` automatically invokes `deleteProduct(id)`.
+  - Replaced all dead footer links with active store routes (`/products`, `/categories`, `/brands`, `/cart`, `/wishlist`, `/allorders`), and added `target="_blank"` with `rel="noopener noreferrer"` to external links.
+  - Rebuilt `not-found.tsx` with a modern branded UI including `PackageSearch` icon, friendly copy, and navigation buttons.
+  - Implemented `ThemeProvider` via `next-themes` in `layout.tsx` with `suppressHydrationWarning`.
+  - Built an animated `ThemeToggle` component and integrated it into `Navbar`.
+- **Files Modified**:
+  - `src/components/cart/cart-item.tsx`
+  - `src/components/common/footer.tsx`
+  - `src/app/not-found.tsx`
+  - `src/provider/theme-provider.tsx`
+  - `src/components/common/theme-toggle.tsx`
+  - `src/app/layout.tsx`
+  - `src/components/common/navbar.tsx`
+
+---
+
+### Step 7: Engineering Documentation, MIT License & Showcase README
 - **Commit**: `docs: add comprehensive engineering audit log and showcase readme`
 - **Deliverables**:
   - Created `docs/AUDIT_AND_FIXES.md` in repository.
   - Rewrote root `README.md` into a production-grade showcase with badges, architecture overview, feature list, and developer instructions.
+  - Added open-source `LICENSE` (MIT).
