@@ -158,3 +158,19 @@ Every step has been isolated into its own atomic commit and pushed to GitHub.
   - `src/app/(pages)/products/[productId]/page.tsx`
   - `src/provider/cart-provider.tsx`
   - `src/provider/wishlist-provider.tsx`
+
+---
+
+### Step 9: Visual Cart Overhaul & Checkout UX Elevation
+- **Commit**: `feat(cart): overhaul shopping bag visual hierarchy, empty state, and checkout modals`
+- **Improvements**:
+  - Replaced unstyled empty cart text with a luxury empty state featuring dual action buttons (`Explore Catalog` & `Browse Categories`) and trust value pillars.
+  - Redesigned `CartItem` cards with dark-mode compatibility, subtle borders, product page direct links, category/brand badges, live stock indicator, and compact quantity steppers.
+  - Transformed the Order Summary into a sticky sidebar featuring an items breakdown, free shipping alert, interactive voucher code input, and clear payment distinction.
+  - Added a confirmation modal to "Clear all items" to protect users against accidental cart loss.
+  - Upgraded both Card Checkout (Stripe) and Cash on Delivery dialogs with contextual input icons (`MapPin`, `Building2`, `Phone`) and security trust chips.
+- **Files Modified**:
+  - `src/app/(pages)/cart/page.tsx`
+  - `src/components/cart/cart-item.tsx`
+  - `src/components/cart/checkout.tsx`
+  - `src/components/cart/cash-checkout.tsx`
