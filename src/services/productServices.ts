@@ -1,5 +1,7 @@
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://ecommerce.routemisr.com/api/v1"
+
 export async function getProducts() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/products`, {
+    const response = await fetch(`${BASE_URL}/products`, {
         method: "GET"
     })
     const data = await response.json()
@@ -8,7 +10,7 @@ export async function getProducts() {
 }
 
 export async function getSpecificProduct(id: string) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/products/${id}`, {
+    const response = await fetch(`${BASE_URL}/products/${id}`, {
         method: "GET"
     })
     const data = await response.json()
@@ -17,7 +19,7 @@ export async function getSpecificProduct(id: string) {
 }
 
 export async function getAllCategories() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/categories`, {
+    const response = await fetch(`${BASE_URL}/categories`, {
         method: "GET"
     })
     const data = await response.json()
@@ -26,7 +28,7 @@ export async function getAllCategories() {
 }
 
 export async function getAllBrands() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/brands`, {
+    const response = await fetch(`${BASE_URL}/brands`, {
         method: "GET"
     })
     const data = await response.json()
@@ -35,7 +37,7 @@ export async function getAllBrands() {
 }
 
 export async function getSpecificBrand(brandId: string) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/brands/${brandId}`, {
+    const response = await fetch(`${BASE_URL}/brands/${brandId}`, {
         method: "GET"
     })
     const data = await response.json()
@@ -44,7 +46,7 @@ export async function getSpecificBrand(brandId: string) {
 }
 
 export async function getSpecificCategory(categoryId: string) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/categories/${categoryId}`, {
+    const response = await fetch(`${BASE_URL}/categories/${categoryId}`, {
         method: "GET"
     })
     const data = await response.json()
@@ -53,7 +55,7 @@ export async function getSpecificCategory(categoryId: string) {
 }
 
 export async function getAllSubCategories() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/subcategories`, {
+    const response = await fetch(`${BASE_URL}/subcategories`, {
         method: "GET"
     })
     const data = await response.json()

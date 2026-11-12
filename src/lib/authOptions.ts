@@ -3,8 +3,10 @@ import Credentials from "next-auth/providers/credentials"
 import { jwtDecode } from "jwt-decode"
 import { DecodedTokenI } from "@/interfaces/decodedtoken"
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://ecommerce.routemisr.com/api/v1"
+
 export const authOptions: NextAuthOptions = {
-    secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET || "nexora_store_super_secret_session_key_32_chars_long_and_secure",
     pages: {
         signIn: "/login"
     },
@@ -13,7 +15,7 @@ export const authOptions: NextAuthOptions = {
             name: "Credentials",
             credentials: { email: {}, password: {} },
             authorize: async (credentials) => {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/auth/signin`, {
+                const response = await fetch(`${BASE_URL}/auth/signin`, {
                     method: "POST",
                     body: JSON.stringify(credentials),
                     headers: {

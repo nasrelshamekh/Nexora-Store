@@ -3,12 +3,14 @@ import { getUserToken } from "@/lib/auth"
 import { CheckoutFormValues } from "@/schema/checkout.schema"
 import { headers } from "next/headers"
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://ecommerce.routemisr.com/api/v1"
+
 export async function addToCart(productId: string) {
     const token = await getUserToken()
     if(!token) {
         throw new Error("You must be logged in to add a product to cart")
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/cart`, {
+    const response = await fetch(`${BASE_URL}/cart`, {
         method: "POST",
         body: JSON.stringify({ productId: productId }),
         headers: {
@@ -25,7 +27,7 @@ export async function getLoggedUserCart() {
     if(!token) {
         throw new Error("You are not authorized to do this action")
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/cart`, {
+    const response = await fetch(`${BASE_URL}/cart`, {
         headers: {
             token: token,
             "Content-Type": "application/json"
@@ -40,7 +42,7 @@ export async function deleteCartProduct(productId : string) {
     if(!token) {
         throw new Error("You are not authorized to do this action")
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/cart/${productId}`, {
+    const response = await fetch(`${BASE_URL}/cart/${productId}`, {
         method: "DELETE",
         headers: {
             token: token,
@@ -56,7 +58,7 @@ export async function updateCartProductCount(productId : string, newCount: numbe
     if(!token) {
         throw new Error("You are not authorized to do this action")
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/cart/${productId}`, {
+    const response = await fetch(`${BASE_URL}/cart/${productId}`, {
         method: "PUT",
         body: JSON.stringify({count: newCount}),
         headers: {
@@ -73,7 +75,7 @@ export async function clearUserCart() {
     if(!token) {
         throw new Error("You are not authorized to do this action")
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/cart/`, {
+    const response = await fetch(`${BASE_URL}/cart/`, {
         method: "DELETE",
         headers: {
             token: token,
@@ -97,7 +99,7 @@ export async function checkoutUser(formData: CheckoutFormValues, cartId: string,
         returnUrl = `${proto}://${host}`
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/orders/checkout-session/${cartId}?url=${encodeURIComponent(returnUrl)}`, {
+    const response = await fetch(`${BASE_URL}/orders/checkout-session/${cartId}?url=${encodeURIComponent(returnUrl)}`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -114,7 +116,7 @@ export async function checkoutCashUser(formData: CheckoutFormValues, cartId: str
     if(!token) {
         throw new Error("You are not authorized to do this action")
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/orders/${cartId}`, {
+    const response = await fetch(`${BASE_URL}/orders/${cartId}`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
