@@ -52,7 +52,7 @@ export default async function CategoryItem({ params }: { params: Promise<{ categ
       {/* Category Hero Header */}
       <header className="relative overflow-hidden border-b border-border/70 bg-gradient-to-b from-primary/10 via-background to-background py-14 px-5">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="container mx-auto px-4 max-w-7xl relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div className="flex items-center gap-5">
               {categoryData?.image ? (
@@ -86,7 +86,7 @@ export default async function CategoryItem({ params }: { params: Promise<{ categ
       </header>
 
       {/* Main Grid */}
-      <main className="container mx-auto px-4 sm:px-6 max-w-7xl py-10">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredCategoryProducts.map((product: ProductI, index: number) => (
             <ProductCard

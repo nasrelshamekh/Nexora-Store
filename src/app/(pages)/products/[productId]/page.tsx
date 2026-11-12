@@ -80,8 +80,8 @@ export default async function ProductDetails({
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-200 pb-20">
       {/* Breadcrumb Header Bar */}
-      <div className="border-b border-border bg-card/60 backdrop-blur-md py-4 px-4 sm:px-6">
-        <div className="container mx-auto max-w-7xl">
+      <div className="border-b border-border bg-card/60 backdrop-blur-md py-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <Breadcrumb>
             <BreadcrumbList className="text-xs sm:text-sm">
               <BreadcrumbItem>

@@ -67,7 +67,7 @@ export default function Navbar() {
       {/* Top subtle brand purple hairline */}
       <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex items-center justify-between h-16 sm:h-20 w-full gap-2 sm:gap-4">
           {/* Logo & Brand */}
           <Link href="/" className="group flex items-center gap-2.5 sm:gap-3 shrink-0 focus-visible:outline-none z-10">

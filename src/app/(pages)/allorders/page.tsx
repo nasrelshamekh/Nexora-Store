@@ -79,7 +79,7 @@ export default async function OrdersPage() {
       {/* Atmospheric Header */}
       <header className="relative overflow-hidden border-b border-border/70 bg-gradient-to-b from-primary/10 via-background to-background py-14 px-5">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="container mx-auto px-4 max-w-6xl relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-sm">
@@ -100,7 +100,7 @@ export default async function OrdersPage() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 sm:px-6 max-w-6xl py-10">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-10">
         {isEmpty ? (
           <section className="flex flex-col items-center justify-center py-20 text-center max-w-md mx-auto">
             <div className="w-24 h-24 rounded-3xl bg-muted/60 border border-border flex items-center justify-center mb-6 shadow-sm">

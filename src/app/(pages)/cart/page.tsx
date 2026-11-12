@@ -204,7 +204,7 @@ export default function Cart() {
     <main className="min-h-screen bg-background text-foreground transition-colors pb-16">
       {/* Top Banner / Breadcrumb */}
       <div className="border-b border-border/60 bg-muted/20">
-        <div className="container mx-auto px-4 sm:px-6 py-4 flex items-center justify-between text-xs text-muted-foreground">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-4 flex items-center justify-between text-xs text-muted-foreground">
           <nav className="flex items-center gap-2">
             <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
             <span>/</span>
@@ -218,7 +218,7 @@ export default function Cart() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 pt-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pt-8">
         {/* Header Title & Clear Cart Trigger */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>

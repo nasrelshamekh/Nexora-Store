@@ -31,7 +31,7 @@ export default async function Home() {
         <div className="absolute top-1/3 -right-20 w-[300px] sm:w-[450px] h-[300px] sm:h-[450px] bg-fuchsia-600/20 rounded-full blur-[100px] sm:blur-[130px] pointer-events-none" />
         <div className="absolute -bottom-24 -left-20 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-purple-700/20 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none" />
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
           <div className="text-center max-w-3xl mx-auto space-y-6 sm:space-y-8">
             {/* Announcement Badge with Live Beacon */}
             <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-md shadow-lg shadow-purple-500/10 hover:border-purple-400/50 transition-colors">
@@ -116,7 +116,7 @@ export default async function Home() {
 
       {/* Trust & Value Proposition Strip */}
       <section className="border-y border-border bg-card/60 backdrop-blur-md py-6">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="flex items-center gap-3 justify-center text-center sm:text-left">
               <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
@@ -159,7 +159,7 @@ export default async function Home() {
       </section>
 
       {/* Categories Grid */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-20">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 gap-4">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-primary">CURATED SELECTION</span>
@@ -184,7 +184,7 @@ export default async function Home() {
 
       {/* Featured Products */}
       <section className="bg-muted/30 border-t border-border py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-primary">TOP PICKS</span>
