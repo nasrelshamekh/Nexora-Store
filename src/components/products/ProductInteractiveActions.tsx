@@ -51,11 +51,13 @@ export default function ProductInteractiveActions({
         <div className="flex-1">
           <AddCartButton prodId={productId} />
         </div>
-        <AddWishlistButton prodId={productId} />
+        <AddWishlistButton prodId={productId} variant="button" />
         <Button
+          type="button"
           variant="outline"
+          size="icon"
           onClick={handleShare}
-          className="cursor-pointer h-10 w-10 sm:h-11 sm:w-11 rounded-xl border-border/80 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors p-0 shrink-0"
+          className="cursor-pointer size-10 sm:size-11 rounded-xl border border-border/80 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors p-0 shrink-0 shadow-xs"
           title="Share this product"
           aria-label="Share this product"
         >

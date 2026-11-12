@@ -32,17 +32,19 @@ export default function ProductCard({
     <Card
       className={`group flex flex-col h-full overflow-hidden rounded-2xl border border-border/80 bg-card shadow-xs hover:shadow-xl hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1.5 relative ${className}`}
     >
-      {/* If wishlist mode, show floating remove button on top-right */}
-      {variant === "wishlist" && (
-        <div className="absolute top-3 right-3 z-20">
+      {/* Floating Action Button (Top-Right of Image) */}
+      <div className="absolute top-3 right-3 z-20">
+        {variant === "wishlist" ? (
           <div className="rounded-full bg-background/90 backdrop-blur-md p-1 shadow-sm border border-border/70 hover:bg-background transition">
             <RemoveWishlistButton prodId={product._id} />
           </div>
-        </div>
-      )}
+        ) : (
+          <AddWishlistButton prodId={product._id} variant="floating" />
+        )}
+      </div>
 
       <Link href={`/products/${product._id}`} className="flex-1 flex flex-col">
-        {/* Image Frame with Floating Overlays */}
+        {/* Image Frame with Floating Brand and Badges */}
         <div className="relative w-full aspect-square overflow-hidden bg-muted/40">
           <Image
             fill
@@ -53,30 +55,18 @@ export default function ProductCard({
             priority={priority}
           />
 
-          {/* Floating Badges */}
-          <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-            {product.brand?.name ? (
-              <span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-background/90 backdrop-blur-md border border-border text-foreground shadow-xs line-clamp-1 max-w-[130px]">
+          {/* Top-Left Brand Badge */}
+          {product.brand?.name && (
+            <div className="absolute top-3 left-3 z-10 pointer-events-none">
+              <span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-background/90 backdrop-blur-md border border-border text-foreground shadow-xs line-clamp-1 max-w-[130px] block">
                 {product.brand.name}
               </span>
-            ) : (
-              <span />
-            )}
-
-            {/* In standard mode, show Rating badge in top-right */}
-            {variant === "default" && (
-              <div className="flex items-center gap-1 bg-background/90 backdrop-blur-md border border-border px-2.5 py-0.5 rounded-full shadow-xs">
-                <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                <span className="text-[11px] font-bold text-foreground">
-                  {product.ratingsAverage}
-                </span>
-              </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Out of Stock Overlay */}
           {isOutOfStock && (
-            <div className="absolute inset-0 bg-background/75 backdrop-blur-[2px] flex items-center justify-center z-10">
+            <div className="absolute inset-0 bg-background/75 backdrop-blur-[2px] flex items-center justify-center z-10 pointer-events-none">
               <span className="px-3.5 py-1.5 rounded-full bg-destructive/15 border border-destructive/30 text-destructive font-bold text-xs shadow-xs">
                 Out of Stock
               </span>
@@ -96,15 +86,19 @@ export default function ProductCard({
         {/* Content Body */}
         <CardHeader className="flex-1 p-5 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-1.5">
+            {/* Category and Rating Row */}
+            <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-primary line-clamp-1">
                 {product.category?.name || "General"}
               </span>
-              {(product.sold ?? 0) > 0 && (
-                <span className="text-[10px] text-muted-foreground font-medium">
-                  {product.sold} sold
+
+              {/* Rating pill */}
+              <div className="flex items-center gap-1 bg-amber-400/10 px-2 py-0.5 rounded-full shrink-0">
+                <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                <span className="text-[11px] font-bold text-amber-600 dark:text-amber-400">
+                  {product.ratingsAverage}
                 </span>
-              )}
+              </div>
             </div>
 
             <CardTitle className="text-base font-bold line-clamp-2 leading-snug group-hover:text-primary transition-colors">
@@ -112,13 +106,13 @@ export default function ProductCard({
             </CardTitle>
 
             {product.description && (
-              <CardDescription className="text-xs text-muted-foreground mt-1 line-clamp-2 leading-relaxed">
+              <CardDescription className="text-xs text-muted-foreground mt-1.5 line-clamp-2 leading-relaxed">
                 {product.description}
               </CardDescription>
             )}
           </div>
 
-          {/* Price and Stock / Rating Row */}
+          {/* Price and Stock / Reviews Telemetry */}
           <div className="mt-4 pt-3 border-t border-border/60 flex items-baseline justify-between">
             <div>
               <span className="text-[11px] text-muted-foreground block font-medium">Price</span>
@@ -131,6 +125,10 @@ export default function ProductCard({
               <span className="text-[11px] text-muted-foreground">
                 ({product.ratingsQuantity} reviews)
               </span>
+            ) : (product.sold ?? 0) > 0 ? (
+              <span className="text-[11px] text-muted-foreground">
+                {product.sold} sold
+              </span>
             ) : !isOutOfStock ? (
               <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
                 In Stock
@@ -140,18 +138,9 @@ export default function ProductCard({
         </CardHeader>
       </Link>
 
-      {/* Action Buttons Footer */}
-      <CardFooter className="p-5 pt-0 gap-2 mt-auto">
-        {variant === "wishlist" ? (
-          <div className="w-full">
-            <AddCartButton prodId={product._id} />
-          </div>
-        ) : (
-          <>
-            <AddCartButton prodId={product._id} />
-            <AddWishlistButton prodId={product._id} />
-          </>
-        )}
+      {/* Prominent Full-Width Add To Cart Button */}
+      <CardFooter className="p-5 pt-0 mt-auto">
+        <AddCartButton prodId={product._id} />
       </CardFooter>
     </Card>
   )
