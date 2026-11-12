@@ -7,7 +7,7 @@ import { Star } from "lucide-react"
 
 import { ProductI } from "@/interfaces/product"
 import { WishlistProductI } from "@/interfaces/wishlistproduct"
-import { Card, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardFooter, CardTitle, CardDescription } from "@/components/ui/card"
 import AddCartButton from "@/components/products/addToCartBtn"
 import AddWishlistButton from "@/components/products/addToWishlistBtn"
 import RemoveWishlistButton from "@/components/wishlist/removeFromWishlistBtn"
@@ -30,7 +30,7 @@ export default function ProductCard({
 
   return (
     <Card
-      className={`group flex flex-col h-full overflow-hidden rounded-2xl border border-border/80 bg-card shadow-xs hover:shadow-xl hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1.5 relative ${className}`}
+      className={`group flex flex-col h-full overflow-hidden rounded-2xl border border-border/80 bg-card shadow-xs hover:shadow-xl hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1.5 relative p-0 py-0 gap-0 ${className}`}
     >
       {/* Floating Action Button (Top-Right of Image) */}
       <div className="absolute top-3 right-3 z-20">
@@ -43,7 +43,7 @@ export default function ProductCard({
         )}
       </div>
 
-      <Link href={`/products/${product._id}`} className="flex-1 flex flex-col">
+      <Link href={`/products/${product._id}`} className="flex-1 flex flex-col w-full">
         {/* Image Frame with Floating Brand and Badges */}
         <div className="relative w-full aspect-square overflow-hidden bg-muted/40">
           <Image
@@ -84,10 +84,10 @@ export default function ProductCard({
         </div>
 
         {/* Content Body */}
-        <CardHeader className="flex-1 p-5 flex flex-col justify-between">
-          <div>
+        <div className="flex-1 p-5 flex flex-col justify-between w-full">
+          <div className="w-full">
             {/* Category and Rating Row */}
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-2 w-full">
               <span className="text-xs font-semibold text-primary line-clamp-1">
                 {product.category?.name || "General"}
               </span>
@@ -113,7 +113,7 @@ export default function ProductCard({
           </div>
 
           {/* Price and Stock / Reviews Telemetry */}
-          <div className="mt-4 pt-3 border-t border-border/60 flex items-baseline justify-between">
+          <div className="mt-4 pt-3 border-t border-border/70 flex items-baseline justify-between w-full">
             <div>
               <span className="text-[11px] text-muted-foreground block font-medium">Price</span>
               <span className="text-xl font-extrabold text-foreground tracking-tight">
@@ -122,24 +122,24 @@ export default function ProductCard({
             </div>
 
             {(product.ratingsQuantity ?? 0) > 0 ? (
-              <span className="text-[11px] text-muted-foreground">
+              <span className="text-xs text-muted-foreground font-medium text-right">
                 ({product.ratingsQuantity} reviews)
               </span>
             ) : (product.sold ?? 0) > 0 ? (
-              <span className="text-[11px] text-muted-foreground">
+              <span className="text-xs text-muted-foreground font-medium text-right">
                 {product.sold} sold
               </span>
             ) : !isOutOfStock ? (
-              <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium text-right">
                 In Stock
               </span>
             ) : null}
           </div>
-        </CardHeader>
+        </div>
       </Link>
 
       {/* Prominent Full-Width Add To Cart Button */}
-      <CardFooter className="p-5 pt-0 mt-auto">
+      <CardFooter className="p-5 pt-0 mt-auto w-full">
         <AddCartButton prodId={product._id} />
       </CardFooter>
     </Card>

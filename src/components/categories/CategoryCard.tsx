@@ -19,7 +19,7 @@ export default function CategoryCard({
 }: CategoryCardProps) {
   return (
     <Card
-      className={`group flex flex-col h-full rounded-2xl border border-border/80 bg-card hover:border-primary/50 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5 overflow-hidden ${className}`}
+      className={`group flex flex-col h-full rounded-2xl border border-border/80 bg-card hover:border-primary/50 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5 overflow-hidden p-0 py-0 gap-0 ${className}`}
     >
       <Link href={`/categories/${category._id}`} className="flex-1 flex flex-col">
         {/* Category Image with Atmospheric Gradient */}
