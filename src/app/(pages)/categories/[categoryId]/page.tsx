@@ -106,7 +106,7 @@ export default async function CategoryItem({ params }: { params: Promise<{ categ
           {filteredCategoryProducts.map((product: ProductI, index: number) => {
             return (
               <React.Fragment key={product._id}>
-                <Card className="group flex flex-col h-full rounded-2xl border border-border/70 bg-card hover:border-primary/40 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <Card className="group flex flex-col h-full rounded-2xl border border-border/70 bg-card hover:border-primary/40 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden">
                   <Link href={`/products/${product._id}`} className="flex-1 flex flex-col">
                     <div className="relative w-full aspect-square overflow-hidden bg-muted/30">
                       <Image
