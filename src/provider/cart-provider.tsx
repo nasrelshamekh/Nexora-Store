@@ -25,8 +25,16 @@ export default function CartContextProvider({ children }: { children: React.Reac
         try {
             setIsLoading(true)
             const data: CartI = await getLoggedUserCart()
-            const total = data.data.products.reduce((accu, prod) => prod.count + accu, 0)
-            setNoOfCartItems(total)
+            if (data?.status === "success" && data?.data) {
+                const count = typeof data.numOfCartItems === "number"
+                    ? data.numOfCartItems
+                    : (data.data.products?.reduce((accu, prod) => (prod.count || 1) + accu, 0) || 0)
+                setNoOfCartItems(count)
+            } else if (typeof data?.numOfCartItems === "number") {
+                setNoOfCartItems(data.numOfCartItems)
+            } else {
+                setNoOfCartItems(0)
+            }
         } catch (error) {
             console.error(error)
             setNoOfCartItems(0)

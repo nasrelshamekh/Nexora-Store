@@ -28,6 +28,7 @@ export async function getLoggedUserCart() {
         throw new Error("You are not authorized to do this action")
     }
     const response = await fetch(`${BASE_URL}/cart`, {
+        cache: "no-store",
         headers: {
             token: token,
             "Content-Type": "application/json"

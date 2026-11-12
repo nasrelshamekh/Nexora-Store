@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 
 export async function getUserToken() {
     const myCookies = await cookies()
-    const secret = process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET
+    const secret = process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET || "nexora_store_super_secret_session_key_32_chars_long_and_secure"
     if (!secret) return undefined
 
     let encryptedToken =

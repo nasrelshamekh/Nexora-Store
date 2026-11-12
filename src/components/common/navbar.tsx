@@ -36,7 +36,6 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { signOut, useSession } from "next-auth/react"
 import { cartContext } from "@/provider/cart-provider"
-import { Spinner } from "@/components/ui/spinner"
 import { wishlistContext } from "@/provider/wishlist-provider"
 import { ThemeToggle } from "@/components/common/theme-toggle"
 import { NexoraLogo } from "@/components/common/logo"
@@ -44,8 +43,8 @@ import { NexoraLogo } from "@/components/common/logo"
 export default function Navbar() {
   const pathname = usePathname()
   const { data: session } = useSession()
-  const { noOfCartItems, isLoading } = useContext(cartContext)
-  const { count, isLoadingWishlist } = useContext(wishlistContext)
+  const { noOfCartItems } = useContext(cartContext)
+  const { count } = useContext(wishlistContext)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   function logoutUser() {
@@ -113,38 +112,34 @@ export default function Navbar() {
             <ThemeToggle />
 
             {/* Saved Wishlist Button */}
-            {session && (
-              <Link
-                href="/wishlist"
-                className="relative p-2.5 rounded-xl border border-border/60 bg-card/60 hover:border-primary/40 hover:bg-primary/5 hover:text-primary transition-all duration-200 text-muted-foreground shadow-2xs"
-                title="My Wishlist"
-                aria-label="Wishlist"
-              >
-                <Heart className="w-4 h-4" />
-                {count > 0 && (
-                  <Badge className="h-4 min-w-4 rounded-full px-1 font-mono text-[9px] tabular-nums absolute -top-1 -right-1 bg-primary text-primary-foreground flex items-center justify-center border-2 border-background">
-                    {isLoadingWishlist ? <Spinner className="w-2.5 h-2.5" /> : count}
-                  </Badge>
-                )}
-              </Link>
-            )}
+            <Link
+              href="/wishlist"
+              className="relative p-2.5 rounded-xl border border-border/70 bg-card/60 hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-200 text-muted-foreground shadow-2xs group"
+              title="Saved Wishlist"
+              aria-label="Wishlist"
+            >
+              <Heart className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              {count > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 min-w-[19px] h-[19px] px-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold font-mono flex items-center justify-center leading-none border-2 border-background shadow-xs pointer-events-none z-10">
+                  {count > 99 ? "99+" : count}
+                </span>
+              )}
+            </Link>
 
             {/* Cart Button */}
-            {session && (
-              <Link
-                href="/cart"
-                className="relative p-2.5 rounded-xl border border-border/60 bg-card/60 hover:border-primary/40 hover:bg-primary/5 hover:text-primary transition-all duration-200 text-muted-foreground shadow-2xs"
-                title="Shopping Cart"
-                aria-label="Cart"
-              >
-                <ShoppingCart className="w-4 h-4" />
-                {noOfCartItems > 0 && (
-                  <Badge className="h-4 min-w-4 rounded-full px-1 font-mono text-[9px] tabular-nums absolute -top-1 -right-1 bg-primary text-primary-foreground flex items-center justify-center border-2 border-background">
-                    {isLoading ? <Spinner className="w-2.5 h-2.5" /> : noOfCartItems}
-                  </Badge>
-                )}
-              </Link>
-            )}
+            <Link
+              href="/cart"
+              className="relative p-2.5 rounded-xl border border-border/70 bg-card/60 hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-200 text-muted-foreground shadow-2xs group"
+              title="Shopping Cart"
+              aria-label="Cart"
+            >
+              <ShoppingCart className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              {noOfCartItems > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 min-w-[19px] h-[19px] px-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold font-mono flex items-center justify-center leading-none border-2 border-background shadow-xs pointer-events-none z-10">
+                  {noOfCartItems > 99 ? "99+" : noOfCartItems}
+                </span>
+              )}
+            </Link>
 
             {/* User Account Dropdown */}
             {session ? (

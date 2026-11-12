@@ -25,7 +25,16 @@ export default function WishlistContextProvider({ children }: { children: React.
         try {
             setIsLoadingWishlist(true)
             const data: WishlistResponseI = await getLoggedUserWishlist()
-            setCount(data.count)
+            if (data?.status === "success") {
+                const total = typeof data.count === "number"
+                    ? data.count
+                    : (Array.isArray(data.data) ? data.data.length : 0)
+                setCount(total)
+            } else if (typeof data?.count === "number") {
+                setCount(data.count)
+            } else {
+                setCount(0)
+            }
         } catch (error) {
             console.error(error)
             setCount(0)
