@@ -41,7 +41,7 @@ export default async function WishlistPage() {
                 </p>
               </div>
             </div>
-            <Badge variant="secondary" className="self-start sm:self-auto text-sm px-3.5 py-1.5 rounded-full font-mono font-semibold border border-border">
+            <Badge variant="secondary" className="self-start sm:self-auto text-sm px-3.5 py-1.5 rounded-full font-mono font-semibold border border-border whitespace-nowrap shrink-0">
               {wishlistProducts.length} {wishlistProducts.length === 1 ? 'saved item' : 'saved items'}
             </Badge>
           </div>

@@ -122,15 +122,15 @@ export default function ProductCard({
             </div>
 
             {(product.ratingsQuantity ?? 0) > 0 ? (
-              <span className="text-xs text-muted-foreground font-medium text-right">
+              <span className="text-xs text-muted-foreground font-medium text-right whitespace-nowrap shrink-0">
                 ({product.ratingsQuantity} reviews)
               </span>
             ) : (product.sold ?? 0) > 0 ? (
-              <span className="text-xs text-muted-foreground font-medium text-right">
+              <span className="text-xs text-muted-foreground font-medium text-right whitespace-nowrap shrink-0">
                 {product.sold} sold
               </span>
             ) : !isOutOfStock ? (
-              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium text-right">
+              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium text-right whitespace-nowrap shrink-0">
                 In Stock
               </span>
             ) : null}

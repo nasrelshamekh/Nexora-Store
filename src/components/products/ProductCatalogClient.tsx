@@ -258,13 +258,13 @@ export default function ProductCatalogClient({
                     <DropdownMenuItem
                       key={b._id}
                       onClick={() => setSelectedBrand(b._id)}
-                      className="flex items-center justify-between text-xs cursor-pointer py-2"
+                      className="flex items-center justify-between text-xs cursor-pointer py-2 gap-2"
                     >
-                      <span>{b.name}</span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-muted-foreground font-mono">({count})</span>
-                        {selectedBrand === b._id && <Check className="w-3.5 h-3.5 text-primary" />}
-                      </div>
+                      <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+                        <span>{b.name}</span>
+                        <span className="text-[10px] text-muted-foreground font-mono font-medium">({count})</span>
+                      </span>
+                      {selectedBrand === b._id && <Check className="w-3.5 h-3.5 text-primary shrink-0" />}
                     </DropdownMenuItem>
                   )
                 })}
@@ -365,14 +365,16 @@ export default function ProductCatalogClient({
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar">
             <button
               onClick={() => setSelectedCategory("all")}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+              className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer inline-flex items-center gap-1.5 ${
                 selectedCategory === "all"
                   ? "bg-primary text-primary-foreground shadow-sm shadow-primary/25"
                   : "bg-muted/70 hover:bg-muted text-muted-foreground hover:text-foreground"
               }`}
             >
-              <span>All Categories</span>
-              <span className="text-[10px] opacity-80 font-mono">({initialProducts.length})</span>
+              <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+                <span>All Categories</span>
+                <span className="text-[10px] opacity-80 font-mono font-medium">({initialProducts.length})</span>
+              </span>
             </button>
 
             {categories.map((cat) => {
@@ -383,14 +385,16 @@ export default function ProductCatalogClient({
                 <button
                   key={cat._id}
                   onClick={() => setSelectedCategory(cat._id)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+                  className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer inline-flex items-center gap-1.5 ${
                     isSelected
                       ? "bg-primary text-primary-foreground shadow-sm shadow-primary/25"
                       : "bg-muted/70 hover:bg-muted text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  <span>{cat.name}</span>
-                  <span className="text-[10px] opacity-80 font-mono">({count})</span>
+                  <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+                    <span>{cat.name}</span>
+                    <span className="text-[10px] opacity-80 font-mono font-medium">({count})</span>
+                  </span>
                 </button>
               )
             })}
@@ -403,33 +407,33 @@ export default function ProductCatalogClient({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setInStockOnly(!inStockOnly)}
-              className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors cursor-pointer flex items-center gap-1.5 ${
+              className={`shrink-0 px-3 py-1 rounded-full text-xs font-medium border transition-colors cursor-pointer inline-flex items-center gap-1.5 whitespace-nowrap ${
                 inStockOnly
                   ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-semibold"
                   : "bg-background border-border text-muted-foreground hover:text-foreground"
               }`}
             >
-              <CheckCircle2 className={`w-3.5 h-3.5 ${inStockOnly ? "text-emerald-500" : "opacity-40"}`} />
-              <span>In Stock Only</span>
+              <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 ${inStockOnly ? "text-emerald-500" : "opacity-40"}`} />
+              <span className="whitespace-nowrap">In Stock Only</span>
             </button>
 
             {/* Quick Best Sellers button */}
             <button
               onClick={() => setSortBy(sortBy === "popular" ? "featured" : "popular")}
-              className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors cursor-pointer flex items-center gap-1.5 ${
+              className={`shrink-0 px-3 py-1 rounded-full text-xs font-medium border transition-colors cursor-pointer inline-flex items-center gap-1.5 whitespace-nowrap ${
                 sortBy === "popular"
                   ? "bg-primary/10 border-primary/30 text-primary font-semibold"
                   : "bg-background border-border text-muted-foreground hover:text-foreground"
               }`}
             >
-              <TrendingUp className="w-3.5 h-3.5" />
-              <span>Best Sellers</span>
+              <TrendingUp className="w-3.5 h-3.5 shrink-0" />
+              <span className="whitespace-nowrap">Best Sellers</span>
             </button>
           </div>
 
           {/* Result Count and Clear Filters */}
-          <div className="flex items-center gap-3 text-xs text-muted-foreground">
-            <span>
+          <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
+            <span className="whitespace-nowrap">
               Showing <strong className="text-foreground">{filteredProducts.length}</strong> of{" "}
               {initialProducts.length} products
             </span>
@@ -439,10 +443,10 @@ export default function ProductCatalogClient({
                 variant="ghost"
                 size="sm"
                 onClick={handleResetFilters}
-                className="h-7 px-2.5 text-xs text-muted-foreground hover:text-destructive cursor-pointer gap-1"
+                className="h-7 px-2.5 text-xs text-muted-foreground hover:text-destructive cursor-pointer gap-1 whitespace-nowrap shrink-0"
               >
-                <RotateCcw className="w-3 h-3" />
-                Reset ({activeFiltersCount})
+                <RotateCcw className="w-3 h-3 shrink-0" />
+                <span className="whitespace-nowrap">Reset ({activeFiltersCount})</span>
               </Button>
             )}
           </div>

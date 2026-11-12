@@ -168,13 +168,13 @@ export default async function ProductDetails({
 
             {/* Rating & Sold Metrics */}
             <div className="flex flex-wrap items-center gap-4 text-sm">
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 whitespace-nowrap shrink-0">
                 <div className="flex items-center gap-0.5">{renderStars(productData.ratingsAverage)}</div>
                 <span className="font-bold text-foreground">{productData.ratingsAverage}</span>
-                <span className="text-muted-foreground text-xs">({productData.ratingsQuantity} reviews)</span>
+                <span className="text-muted-foreground text-xs whitespace-nowrap">({productData.ratingsQuantity} reviews)</span>
               </div>
               <span className="text-muted-foreground/40">•</span>
-              <span className="text-xs font-medium text-muted-foreground">
+              <span className="text-xs font-medium text-muted-foreground whitespace-nowrap shrink-0">
                 <strong className="text-foreground">{productData.sold}</strong> items delivered
               </span>
             </div>
@@ -200,9 +200,9 @@ export default async function ProductDetails({
             <div className="flex items-center justify-between py-1">
               <div>
                 {productData.quantity > 0 ? (
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold text-xs">
-                    <CheckCircle2 className="w-4 h-4" />
-                    <span>In Stock ({productData.quantity} units available)</span>
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold text-xs whitespace-nowrap shrink-0">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    <span className="whitespace-nowrap">In Stock ({productData.quantity} units available)</span>
                   </div>
                 ) : (
                   <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-destructive/10 border border-destructive/20 text-destructive font-semibold text-xs">

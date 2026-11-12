@@ -224,7 +224,7 @@ export default function Cart() {
           <div>
             <div className="flex items-center gap-3">
               <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Shopping Cart</h1>
-              <Badge variant="secondary" className="text-xs px-2.5 py-1 rounded-full font-mono font-bold">
+              <Badge variant="secondary" className="text-xs px-2.5 py-1 rounded-full font-mono font-bold whitespace-nowrap shrink-0">
                 {noOfCartItems} {noOfCartItems === 1 ? "item" : "items"}
               </Badge>
             </div>
@@ -332,11 +332,11 @@ export default function Cart() {
               <CardContent className="space-y-5 pt-5">
                 {/* Price Breakdown */}
                 <div className="space-y-3 text-sm">
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">
+                  <div className="flex justify-between items-center gap-2">
+                    <span className="text-muted-foreground whitespace-nowrap">
                       Subtotal ({noOfCartItems} {noOfCartItems === 1 ? "item" : "items"})
                     </span>
-                    <span className="font-semibold text-foreground">
+                    <span className="font-semibold text-foreground whitespace-nowrap">
                       EGP {subtotal.toLocaleString()}
                     </span>
                   </div>

@@ -78,7 +78,7 @@ export default async function BrandItem({ params }: { params: Promise<{ brandId:
               </div>
             </div>
 
-            <Badge variant="secondary" className="self-start sm:self-auto text-sm px-3.5 py-1.5 rounded-full font-mono font-semibold border border-border">
+            <Badge variant="secondary" className="self-start sm:self-auto text-sm px-3.5 py-1.5 rounded-full font-mono font-semibold border border-border whitespace-nowrap shrink-0">
               {filteredBrandProducts.length} {filteredBrandProducts.length === 1 ? 'Product Available' : 'Products Available'}
             </Badge>
           </div>

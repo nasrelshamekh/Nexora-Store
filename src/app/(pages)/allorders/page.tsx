@@ -92,7 +92,7 @@ export default async function OrdersPage() {
                 </p>
               </div>
             </div>
-            <Badge variant="secondary" className="self-start sm:self-auto text-sm px-3.5 py-1.5 rounded-full font-mono font-semibold border border-border">
+            <Badge variant="secondary" className="self-start sm:self-auto text-sm px-3.5 py-1.5 rounded-full font-mono font-semibold border border-border whitespace-nowrap shrink-0">
               {orders.length} {orders.length === 1 ? 'order placed' : 'orders placed'}
             </Badge>
           </div>
@@ -209,8 +209,8 @@ export default async function OrdersPage() {
                     </div>
                   </CardContent>
 
-                  <CardFooter className="bg-muted/20 border-t border-border/60 px-5 sm:px-6 py-3.5 flex justify-between items-center text-xs text-muted-foreground">
-                    <span>
+                  <CardFooter className="bg-muted/20 border-t border-border/60 px-5 sm:px-6 py-3.5 flex justify-between items-center text-xs text-muted-foreground gap-2">
+                    <span className="whitespace-nowrap">
                       {order.cartItems.length} {order.cartItems.length === 1 ? 'item' : 'items'} in shipment
                     </span>
                     <Button variant="ghost" size="sm" asChild className="text-xs hover:text-primary">
