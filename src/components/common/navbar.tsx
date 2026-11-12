@@ -85,7 +85,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Center Navigation Pills (Dead-center in navbar container) */}
-          <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2 pointer-events-none">
+          <div className="hidden xl:flex items-center absolute left-1/2 -translate-x-1/2 pointer-events-none">
             <div className="pointer-events-auto flex items-center gap-1 xl:gap-1.5 bg-muted/40 p-1.5 rounded-full border border-border/60 shadow-xs backdrop-blur-md">
               {navLinks.map((link) => {
                 const active = isActive(link.href)
@@ -221,13 +221,13 @@ export default function Navbar() {
               </div>
             )}
 
-            {/* Mobile / Tablet Hamburger Drawer (Visible below lg: 1024px) */}
+            {/* Mobile / Tablet Hamburger Drawer (Visible below xl: 1280px) */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="lg:hidden rounded-xl h-9 w-9 sm:h-10 sm:w-10 border border-border/60 hover:bg-accent cursor-pointer ml-0.5 sm:ml-1"
+                  className="xl:hidden rounded-xl h-9 w-9 sm:h-10 sm:w-10 border border-border/60 hover:bg-accent cursor-pointer ml-0.5 sm:ml-1"
                   aria-label="Open Navigation Menu"
                 >
                   <Menu className="w-5 h-5" />
