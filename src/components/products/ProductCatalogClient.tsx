@@ -260,9 +260,8 @@ export default function ProductCatalogClient({
                       onClick={() => setSelectedBrand(b._id)}
                       className="flex items-center justify-between text-xs cursor-pointer py-2 gap-2"
                     >
-                      <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
-                        <span>{b.name}</span>
-                        <span className="text-[10px] text-muted-foreground font-mono font-medium">({count})</span>
+                      <span className="whitespace-nowrap">
+                        {b.name} <span className="text-muted-foreground font-normal">({count})</span>
                       </span>
                       {selectedBrand === b._id && <Check className="w-3.5 h-3.5 text-primary shrink-0" />}
                     </DropdownMenuItem>
@@ -365,16 +364,13 @@ export default function ProductCatalogClient({
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar">
             <button
               onClick={() => setSelectedCategory("all")}
-              className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer inline-flex items-center gap-1.5 ${
+              className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                 selectedCategory === "all"
                   ? "bg-primary text-primary-foreground shadow-sm shadow-primary/25"
                   : "bg-muted/70 hover:bg-muted text-muted-foreground hover:text-foreground"
               }`}
             >
-              <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
-                <span>All Categories</span>
-                <span className="text-[10px] opacity-80 font-mono font-medium">({initialProducts.length})</span>
-              </span>
+              All Categories <span className="opacity-80 font-normal">({initialProducts.length})</span>
             </button>
 
             {categories.map((cat) => {
@@ -385,16 +381,13 @@ export default function ProductCatalogClient({
                 <button
                   key={cat._id}
                   onClick={() => setSelectedCategory(cat._id)}
-                  className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer inline-flex items-center gap-1.5 ${
+                  className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     isSelected
                       ? "bg-primary text-primary-foreground shadow-sm shadow-primary/25"
                       : "bg-muted/70 hover:bg-muted text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
-                    <span>{cat.name}</span>
-                    <span className="text-[10px] opacity-80 font-mono font-medium">({count})</span>
-                  </span>
+                  {cat.name} <span className="opacity-80 font-normal">({count})</span>
                 </button>
               )
             })}

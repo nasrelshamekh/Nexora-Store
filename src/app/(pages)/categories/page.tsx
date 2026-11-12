@@ -29,7 +29,7 @@ export default async function Categories() {
                 </p>
               </div>
             </div>
-            <Badge variant="secondary" className="self-start sm:self-auto text-sm px-3.5 py-1.5 rounded-full font-mono font-semibold border border-border whitespace-nowrap shrink-0">
+            <Badge variant="secondary" className="self-start sm:self-auto text-sm px-3.5 py-1.5 rounded-full font-semibold border border-border whitespace-nowrap shrink-0">
               {(categories || []).length} Departments
             </Badge>
           </div>

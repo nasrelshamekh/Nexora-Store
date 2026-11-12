@@ -224,7 +224,7 @@ export default function Cart() {
           <div>
             <div className="flex items-center gap-3">
               <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Shopping Cart</h1>
-              <Badge variant="secondary" className="text-xs px-2.5 py-1 rounded-full font-mono font-bold whitespace-nowrap shrink-0">
+              <Badge variant="secondary" className="text-xs px-2.5 py-1 rounded-full font-bold whitespace-nowrap shrink-0">
                 {noOfCartItems} {noOfCartItems === 1 ? "item" : "items"}
               </Badge>
             </div>

@@ -47,13 +47,13 @@ export default async function ProductsPage() {
             <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
               <Badge
                 variant="secondary"
-                className="text-sm px-3.5 py-1.5 rounded-full font-mono font-semibold border border-border whitespace-nowrap shrink-0"
+                className="text-sm px-3.5 py-1.5 rounded-full font-semibold border border-border whitespace-nowrap shrink-0"
               >
                 {products.length} Items Listed
               </Badge>
               <Badge
                 variant="outline"
-                className="text-sm px-3.5 py-1.5 rounded-full font-mono font-semibold border-primary/30 text-primary bg-primary/5 whitespace-nowrap shrink-0"
+                className="text-sm px-3.5 py-1.5 rounded-full font-semibold border-primary/30 text-primary bg-primary/5 whitespace-nowrap shrink-0"
               >
                 {categories.length} Departments
               </Badge>
