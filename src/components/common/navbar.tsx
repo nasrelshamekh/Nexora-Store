@@ -68,7 +68,7 @@ export default function Navbar() {
       <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <div className="flex items-center justify-between h-16 sm:h-20 w-full gap-2 sm:gap-4">
+        <div className="flex items-center justify-between h-16 sm:h-20 w-full gap-2 sm:gap-4 relative">
           {/* Logo & Brand */}
           <Link href="/" className="group flex items-center gap-2.5 sm:gap-3 shrink-0 focus-visible:outline-none z-10">
             <div className="relative">
@@ -84,9 +84,9 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Center Navigation Pills (Clean flex-1 centering, collision-proof) */}
-          <div className="hidden lg:flex items-center justify-center flex-1 mx-2 xl:mx-4">
-            <div className="flex items-center gap-1 xl:gap-1.5 bg-muted/40 p-1.5 rounded-full border border-border/60 shadow-xs">
+          {/* Desktop Center Navigation Pills (Dead-center in navbar container) */}
+          <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2 pointer-events-none">
+            <div className="pointer-events-auto flex items-center gap-1 xl:gap-1.5 bg-muted/40 p-1.5 rounded-full border border-border/60 shadow-xs backdrop-blur-md">
               {navLinks.map((link) => {
                 const active = isActive(link.href)
                 const Icon = link.icon
@@ -211,7 +211,7 @@ export default function Navbar() {
                 <Button
                   asChild
                   size="sm"
-                  className="rounded-full text-xs font-bold px-3 sm:px-4 cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20 hidden md:inline-flex"
+                  className="rounded-full text-xs font-bold px-3 sm:px-4 cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20 hidden xl:inline-flex"
                 >
                   <Link href="/register" className="inline-flex items-center gap-1.5">
                     <UserPlus className="w-3.5 h-3.5" />
