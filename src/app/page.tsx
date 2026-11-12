@@ -25,28 +25,28 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
       {/* Hero Section */}
-      <section className="relative min-h-[580px] md:min-h-[660px] overflow-hidden bg-gradient-to-br from-[#090611] via-[#100a20] to-[#1e0e38] text-white flex items-center justify-center border-b border-border/50">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#090611] via-[#100a20] to-[#1e0e38] text-white flex items-center justify-center border-b border-border/50 py-12 sm:py-20 lg:py-24">
         {/* Layered Radiant Glow Orbs */}
-        <div className="absolute -top-32 left-1/4 w-[500px] h-[500px] bg-primary/25 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute top-1/3 -right-20 w-[450px] h-[450px] bg-fuchsia-600/20 rounded-full blur-[130px] pointer-events-none" />
-        <div className="absolute -bottom-24 -left-20 w-[400px] h-[400px] bg-purple-700/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute -top-32 left-1/4 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-primary/25 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/3 -right-20 w-[300px] sm:w-[450px] h-[300px] sm:h-[450px] bg-fuchsia-600/20 rounded-full blur-[100px] sm:blur-[130px] pointer-events-none" />
+        <div className="absolute -bottom-24 -left-20 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-purple-700/20 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none" />
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 relative z-10">
-          <div className="text-center max-w-3xl mx-auto space-y-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto space-y-6 sm:space-y-8">
             {/* Announcement Badge with Live Beacon */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-md shadow-lg shadow-purple-500/10 hover:border-purple-400/50 transition-colors">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs font-semibold bg-white/10 border border-white/20 text-white backdrop-blur-md shadow-lg shadow-purple-500/10 hover:border-purple-400/50 transition-colors">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
               </span>
-              <span className="font-mono tracking-wider uppercase text-[11px] text-purple-200">
+              <span className="font-mono tracking-wider uppercase text-[10px] sm:text-[11px] text-purple-200">
                 Winter 2026 Collection
               </span>
-              <Sparkles className="w-3.5 h-3.5 text-purple-300" />
+              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-purple-300" />
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-white">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.12] text-white">
               Next-Gen Digital <br className="hidden sm:inline" />
               <span className="bg-gradient-to-r from-purple-300 via-fuchsia-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-sm">
                 Commerce Experience
@@ -54,31 +54,31 @@ export default async function Home() {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-xl text-neutral-300 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto leading-relaxed px-2">
               Curated luxury fashion, high-performance electronics, and lifestyle essentials with sub-second cart sync and express delivery across Egypt.
             </p>
 
             {/* Value Highlights Pill Strip */}
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-xs text-neutral-300">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-xs">
-                <Zap className="w-3.5 h-3.5 text-purple-400" /> Fast Route Checkout
+            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 pt-1 text-[11px] sm:text-xs text-neutral-300">
+              <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-xs">
+                <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-purple-400" /> Fast Route Checkout
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-xs">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> 100% Brand Authenticity
+              <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-xs">
+                <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-400" /> 100% Brand Authenticity
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-xs">
-                <Truck className="w-3.5 h-3.5 text-purple-400" /> Free Doorstep Shipping
+              <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-xs">
+                <Truck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-purple-400" /> Free Doorstep Shipping
               </span>
             </div>
 
             {/* Call To Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-1 sm:pt-2 w-full max-w-sm sm:max-w-none mx-auto">
               <Button
                 asChild
                 size="lg"
-                className="w-full sm:w-auto rounded-full px-8 py-6 font-bold bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white shadow-xl shadow-purple-600/30 hover:shadow-purple-600/50 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer h-13 text-sm sm:text-base border border-purple-400/30"
+                className="w-full sm:w-auto rounded-full px-6 sm:px-8 py-5 sm:py-6 font-bold bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white shadow-xl shadow-purple-600/30 hover:shadow-purple-600/50 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer h-11 sm:h-13 text-sm sm:text-base border border-purple-400/30"
               >
-                <Link href="/products" className="inline-flex items-center gap-2">
+                <Link href="/products" className="inline-flex items-center justify-center gap-2">
                   <span>Explore Catalog</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -87,7 +87,7 @@ export default async function Home() {
                 asChild
                 size="lg"
                 variant="ghost"
-                className="w-full sm:w-auto rounded-full px-8 py-6 font-semibold text-white border border-white/25 bg-white/10 hover:bg-white/20 hover:border-white/40 backdrop-blur-md hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer h-13 text-sm sm:text-base shadow-sm"
+                className="w-full sm:w-auto rounded-full px-6 sm:px-8 py-5 sm:py-6 font-semibold text-white border border-white/25 bg-white/10 hover:bg-white/20 hover:border-white/40 backdrop-blur-md hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer h-11 sm:h-13 text-sm sm:text-base shadow-sm"
               >
                 <Link href="/categories">
                   <span>Shop Categories</span>
@@ -96,18 +96,18 @@ export default async function Home() {
             </div>
 
             {/* Social Proof Counters */}
-            <div className="pt-6 border-t border-white/10 grid grid-cols-3 max-w-lg mx-auto gap-4 text-center">
+            <div className="pt-5 sm:pt-6 border-t border-white/10 grid grid-cols-3 max-w-lg mx-auto gap-2 sm:gap-4 text-center">
               <div>
-                <p className="text-xl sm:text-2xl font-extrabold text-white">15,000+</p>
-                <p className="text-[11px] sm:text-xs text-neutral-400">Happy Shoppers</p>
+                <p className="text-lg sm:text-2xl font-extrabold text-white">15,000+</p>
+                <p className="text-[10px] sm:text-xs text-neutral-400 font-medium">Happy Shoppers</p>
               </div>
               <div className="border-x border-white/10">
-                <p className="text-xl sm:text-2xl font-extrabold text-white">4.9 ★</p>
-                <p className="text-[11px] sm:text-xs text-neutral-400">Customer Rating</p>
+                <p className="text-lg sm:text-2xl font-extrabold text-white">4.9 ★</p>
+                <p className="text-[10px] sm:text-xs text-neutral-400 font-medium">Customer Rating</p>
               </div>
               <div>
-                <p className="text-xl sm:text-2xl font-extrabold text-white">24-48h</p>
-                <p className="text-[11px] sm:text-xs text-neutral-400">Express Delivery</p>
+                <p className="text-lg sm:text-2xl font-extrabold text-white">24-48h</p>
+                <p className="text-[10px] sm:text-xs text-neutral-400 font-medium">Express Delivery</p>
               </div>
             </div>
           </div>

@@ -68,53 +68,55 @@ export default function Navbar() {
       <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative flex items-center justify-between h-16 sm:h-20">
+        <div className="flex items-center justify-between h-16 sm:h-20 w-full gap-2 sm:gap-4">
           {/* Logo & Brand */}
-          <Link href="/" className="group flex items-center gap-3 shrink-0 focus-visible:outline-none z-10">
+          <Link href="/" className="group flex items-center gap-2.5 sm:gap-3 shrink-0 focus-visible:outline-none z-10">
             <div className="relative">
-              <NexoraLogo size={38} withGlow className="group-hover:scale-105 transition-transform duration-300" />
+              <NexoraLogo size={34} withGlow className="sm:w-[38px] sm:h-[38px] group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="flex flex-col">
-              <span className="font-extrabold text-2xl tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/80 bg-clip-text">
+              <span className="font-extrabold text-xl sm:text-2xl tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/80 bg-clip-text">
                 Nexora
               </span>
-              <span className="text-[10px] uppercase font-bold tracking-widest text-primary hidden sm:block -mt-1">
+              <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-widest text-primary hidden sm:block -mt-1">
                 Luxe Store
               </span>
             </div>
           </Link>
 
-          {/* Desktop Center Navigation Pills (Dead-center aligned) */}
-          <div className="hidden md:flex items-center gap-1.5 bg-muted/40 p-1.5 rounded-full border border-border/60 shadow-xs absolute left-1/2 -translate-x-1/2 z-10">
-            {navLinks.map((link) => {
-              const active = isActive(link.href)
-              const Icon = link.icon
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
-                    active
-                      ? "bg-primary text-primary-foreground shadow-sm shadow-primary/25"
-                      : "text-muted-foreground hover:text-foreground hover:bg-background/80"
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span>{link.label}</span>
-                </Link>
-              )
-            })}
+          {/* Desktop Center Navigation Pills (Clean flex-1 centering, collision-proof) */}
+          <div className="hidden lg:flex items-center justify-center flex-1 mx-2 xl:mx-4">
+            <div className="flex items-center gap-1 xl:gap-1.5 bg-muted/40 p-1.5 rounded-full border border-border/60 shadow-xs">
+              {navLinks.map((link) => {
+                const active = isActive(link.href)
+                const Icon = link.icon
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`inline-flex items-center gap-1.5 xl:gap-2 px-3.5 xl:px-4 py-1.5 xl:py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                      active
+                        ? "bg-primary text-primary-foreground shadow-sm shadow-primary/25"
+                        : "text-muted-foreground hover:text-foreground hover:bg-background/80"
+                    }`}
+                  >
+                    <Icon className="w-3.5 h-3.5" />
+                    <span>{link.label}</span>
+                  </Link>
+                )
+              })}
+            </div>
           </div>
 
           {/* Right Action Controls */}
-          <div className="flex items-center gap-2 sm:gap-2.5 z-10">
+          <div className="flex items-center gap-1.5 sm:gap-2 lg:gap-2.5 shrink-0 z-10">
             {/* Dark / Light Mode Toggle */}
             <ThemeToggle />
 
             {/* Saved Wishlist Button */}
             <Link
               href="/wishlist"
-              className="relative p-2.5 rounded-xl border border-border/70 bg-card/60 hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-200 text-muted-foreground shadow-2xs group"
+              className="relative p-2 sm:p-2.5 rounded-xl border border-border/70 bg-card/60 hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-200 text-muted-foreground shadow-2xs group"
               title="Saved Wishlist"
               aria-label="Wishlist"
             >
@@ -129,7 +131,7 @@ export default function Navbar() {
             {/* Cart Button */}
             <Link
               href="/cart"
-              className="relative p-2.5 rounded-xl border border-border/70 bg-card/60 hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-200 text-muted-foreground shadow-2xs group"
+              className="relative p-2 sm:p-2.5 rounded-xl border border-border/70 bg-card/60 hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-200 text-muted-foreground shadow-2xs group"
               title="Shopping Cart"
               aria-label="Cart"
             >
@@ -147,15 +149,15 @@ export default function Navbar() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="outline"
-                    className="cursor-pointer rounded-full h-10 px-3 border-border/70 bg-card/60 hover:bg-accent/80 hover:border-primary/40 transition gap-2 shadow-2xs text-xs font-semibold"
+                    className="cursor-pointer rounded-full h-9 sm:h-10 px-2.5 sm:px-3 border-border/70 bg-card/60 hover:bg-accent/80 hover:border-primary/40 transition gap-1.5 sm:gap-2 shadow-2xs text-xs font-semibold"
                   >
                     <div className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">
                       {session.user?.name?.charAt(0).toUpperCase() || "U"}
                     </div>
-                    <span className="max-w-[100px] truncate hidden sm:inline-block">
+                    <span className="max-w-[70px] sm:max-w-[100px] truncate hidden md:inline-block">
                       {session.user?.name}
                     </span>
-                    <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+                    <ChevronDown className="w-3.5 h-3.5 text-muted-foreground hidden sm:inline-block" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-60 rounded-2xl p-2 border-border/80 shadow-2xl">
@@ -194,12 +196,12 @@ export default function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <div className="flex items-center gap-2">
+              <div className="hidden sm:flex items-center gap-1.5 sm:gap-2">
                 <Button
                   asChild
                   variant="ghost"
                   size="sm"
-                  className="rounded-full text-xs font-semibold px-4 cursor-pointer hidden sm:inline-flex"
+                  className="rounded-full text-xs font-semibold px-3 sm:px-4 cursor-pointer"
                 >
                   <Link href="/login" className="inline-flex items-center gap-1.5">
                     <LogIn className="w-3.5 h-3.5" />
@@ -209,7 +211,7 @@ export default function Navbar() {
                 <Button
                   asChild
                   size="sm"
-                  className="rounded-full text-xs font-bold px-4 cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20"
+                  className="rounded-full text-xs font-bold px-3 sm:px-4 cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20 hidden md:inline-flex"
                 >
                   <Link href="/register" className="inline-flex items-center gap-1.5">
                     <UserPlus className="w-3.5 h-3.5" />
@@ -219,14 +221,14 @@ export default function Navbar() {
               </div>
             )}
 
-            {/* Mobile Hamburger Drawer */}
+            {/* Mobile / Tablet Hamburger Drawer (Visible below lg: 1024px) */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="md:hidden rounded-xl h-10 w-10 border border-border/60 hover:bg-accent cursor-pointer"
-                  aria-label="Open Mobile Menu"
+                  className="lg:hidden rounded-xl h-9 w-9 sm:h-10 sm:w-10 border border-border/60 hover:bg-accent cursor-pointer ml-0.5 sm:ml-1"
+                  aria-label="Open Navigation Menu"
                 >
                   <Menu className="w-5 h-5" />
                 </Button>
