@@ -1,15 +1,12 @@
 "use client"
 
 import React, { useState, useMemo, useTransition } from "react"
-import Image from "next/image"
-import Link from "next/link"
 import {
   Search,
   SlidersHorizontal,
   ArrowUpDown,
   Check,
   X,
-  Star,
   PackageOpen,
   LayoutGrid,
   Grid3X3,
@@ -21,7 +18,6 @@ import {
 import { ProductI } from "@/interfaces/product"
 import { allCategoriesI } from "@/interfaces/allcategories"
 import { BrandsI } from "@/interfaces/allbrands"
-import { Card, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -33,8 +29,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import AddCartButton from "@/components/products/addToCartBtn"
-import AddWishlistButton from "@/components/products/addToWishlistBtn"
+import ProductCard from "@/components/products/ProductCard"
 
 type SortOption = "featured" | "price-asc" | "price-desc" | "rating-desc" | "popular" | "name-asc"
 type PriceBracket = "all" | "under-500" | "500-1500" | "1500-3000" | "above-3000"
@@ -529,112 +524,13 @@ export default function ProductCatalogClient({
               : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           }`}
         >
-          {filteredProducts.map((product, index) => {
-            const isOutOfStock = product.quantity <= 0
-            const isLowStock = product.quantity > 0 && product.quantity <= 5
-
-            return (
-              <Card
-                key={product._id}
-                className="group flex flex-col h-full overflow-hidden rounded-2xl border-border bg-card shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-300 transform hover:-translate-y-1 relative"
-              >
-                <Link href={`/products/${product._id}`} className="flex-1 flex flex-col">
-                  {/* Image Container with Floating Badges */}
-                  <div className="relative w-full aspect-square overflow-hidden bg-muted/40">
-                    <Image
-                      fill
-                      src={product.imageCover}
-                      alt={product.title}
-                      className="object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      priority={index < 8}
-                    />
-
-                    {/* Top Overlay Badges */}
-                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-                      {product.brand?.name ? (
-                        <span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-background/90 backdrop-blur-md border border-border text-foreground shadow-xs">
-                          {product.brand.name}
-                        </span>
-                      ) : (
-                        <span />
-                      )}
-
-                      <div className="flex items-center gap-1 bg-background/90 backdrop-blur-md border border-border px-2 py-0.5 rounded-full shadow-xs">
-                        <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                        <span className="text-[11px] font-bold text-foreground">
-                          {product.ratingsAverage}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Stock Alert Badge */}
-                    {isOutOfStock && (
-                      <div className="absolute inset-0 bg-background/70 backdrop-blur-[2px] flex items-center justify-center">
-                        <span className="px-3 py-1.5 rounded-full bg-destructive/15 border border-destructive/30 text-destructive font-bold text-xs">
-                          Out of Stock
-                        </span>
-                      </div>
-                    )}
-
-                    {isLowStock && (
-                      <div className="absolute bottom-3 left-3 pointer-events-none">
-                        <span className="px-2.5 py-1 rounded-full bg-amber-500/90 text-white font-bold text-[10px] shadow-sm">
-                          Only {product.quantity} left
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Product Details Header */}
-                  <CardHeader className="flex-1 p-5">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-semibold text-primary line-clamp-1">
-                        {product.category?.name || "General"}
-                      </span>
-                      {product.sold > 0 && (
-                        <span className="text-[10px] text-muted-foreground font-medium">
-                          {product.sold} sold
-                        </span>
-                      )}
-                    </div>
-
-                    <CardTitle className="text-base font-bold line-clamp-2 leading-snug group-hover:text-primary transition-colors">
-                      {product.title}
-                    </CardTitle>
-
-                    {product.description && (
-                      <CardDescription className="text-xs text-muted-foreground mt-1 line-clamp-2 leading-relaxed">
-                        {product.description}
-                      </CardDescription>
-                    )}
-
-                    {/* Price and Stock Indicator */}
-                    <div className="mt-4 pt-3 border-t border-border/60 flex items-baseline justify-between">
-                      <div>
-                        <span className="text-[11px] text-muted-foreground block font-medium">Price</span>
-                        <span className="text-xl font-extrabold text-foreground tracking-tight">
-                          EGP {product.price?.toFixed(2)}
-                        </span>
-                      </div>
-
-                      {product.ratingsQuantity > 0 && (
-                        <span className="text-[11px] text-muted-foreground">
-                          ({product.ratingsQuantity} reviews)
-                        </span>
-                      )}
-                    </div>
-                  </CardHeader>
-                </Link>
-
-                {/* Footer Action Buttons */}
-                <CardFooter className="p-5 pt-0 gap-2">
-                  <AddCartButton prodId={product._id} />
-                  <AddWishlistButton prodId={product._id} />
-                </CardFooter>
-              </Card>
-            )
-          })}
+          {filteredProducts.map((product, index) => (
+            <ProductCard
+              key={product._id}
+              product={product}
+              priority={index < 8}
+            />
+          ))}
         </div>
       )}
     </div>

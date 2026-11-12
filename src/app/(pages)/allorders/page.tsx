@@ -125,7 +125,7 @@ export default async function OrdersPage() {
               const StatusIcon = status.icon;
 
               return (
-                <Card key={order._id} className="overflow-hidden rounded-2xl border border-border/80 bg-card hover:shadow-lg transition-all duration-300">
+                <Card key={order._id} className="overflow-hidden rounded-2xl border border-border/80 bg-card hover:border-primary/40 hover:shadow-xl transition-all duration-300">
                   <CardHeader className="bg-muted/30 border-b border-border/60 p-5 sm:p-6">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                       <div className="space-y-2">

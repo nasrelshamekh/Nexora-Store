@@ -1,11 +1,9 @@
 import React from "react"
 import { Star, StarHalf, Truck, RotateCcw, ShieldCheck, CheckCircle2, ArrowLeft, Zap, Sparkles } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image"
 
 import { getProducts, getSpecificProduct } from "@/services/productServices"
 import { ProductI } from "@/interfaces/product"
-import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
@@ -18,8 +16,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 
-import AddCartButton from "@/components/products/addToCartBtn"
-import AddWishlistButton from "@/components/products/addToWishlistBtn"
+import ProductCard from "@/components/products/ProductCard"
 import ProductImageGallery from "@/components/products/ProductImageGallery"
 import ProductInteractiveActions from "@/components/products/ProductInteractiveActions"
 import ProductDetailsTabs from "@/components/products/ProductDetailsTabs"
@@ -280,52 +277,7 @@ export default async function ProductDetails({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {relatedProducts.map((related: ProductI) => (
-                <Card
-                  key={related._id}
-                  className="group flex flex-col h-full overflow-hidden rounded-2xl border-border bg-card shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  <Link href={`/products/${related._id}`} className="flex-1 flex flex-col">
-                    <div className="relative w-full aspect-square bg-muted/30 overflow-hidden">
-                      <Image
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                        fill
-                        src={related.imageCover}
-                        alt={related.title}
-                        className="object-cover group-hover:scale-108 transition-transform duration-500"
-                      />
-                    </div>
-                    <CardHeader className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-primary">
-                            {related.brand?.name}
-                          </span>
-                          <div className="flex items-center gap-1 bg-amber-400/10 px-2 py-0.5 rounded-full">
-                            <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                            <span className="text-xs font-bold text-amber-600 dark:text-amber-400">
-                              {related.ratingsAverage}
-                            </span>
-                          </div>
-                        </div>
-
-                        <CardTitle className="text-sm font-bold line-clamp-2 group-hover:text-primary transition-colors leading-snug">
-                          {related.title}
-                        </CardTitle>
-                      </div>
-
-                      <div className="mt-3 pt-2 border-t border-border/60">
-                        <span className="text-base font-extrabold text-foreground">
-                          EGP {related.price?.toFixed(2)}
-                        </span>
-                      </div>
-                    </CardHeader>
-                  </Link>
-
-                  <CardFooter className="p-4 sm:p-5 pt-0 gap-2">
-                    <AddCartButton prodId={related._id} />
-                    <AddWishlistButton prodId={related._id} />
-                  </CardFooter>
-                </Card>
+                <ProductCard key={related._id} product={related} />
               ))}
             </div>
           </section>

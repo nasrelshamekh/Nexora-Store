@@ -1,20 +1,18 @@
 import React from 'react';
-import { ChevronRight, Star, Sparkles, Truck, ShieldCheck, RotateCcw, Headphones, ArrowRight, Zap } from 'lucide-react';
+import { ChevronRight, Sparkles, Truck, ShieldCheck, RotateCcw, Headphones, ArrowRight, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { getAllCategories, getProducts } from '@/services/productServices';
 import { ProductI } from '@/interfaces/product';
 import { allCategoriesI } from './../interfaces/allcategories';
-import Image from 'next/image';
-import AddCartButton from '@/components/products/addToCartBtn';
-import AddWishlistButton from '@/components/products/addToWishlistBtn';
+import ProductCard from '@/components/products/ProductCard';
+import CategoryCard from '@/components/categories/CategoryCard';
 
 export default async function Home() {
   const data = await getProducts()
-  const { data: featuredProducts } = data as { data: ProductI[] }
+  const { data: featuredProducts } = (data || {}) as { data: ProductI[] }
   const categoryData = await getAllCategories()
-  const categories = (categoryData?.data || []) as allCategoriesI[]
+  const categories = ((categoryData?.data || []) as allCategoriesI[]).slice(0, 8)
 
   const getRandomProducts = (products: ProductI[] = [], count: number): ProductI[] => {
     if (!products || products.length === 0) return []
@@ -22,7 +20,7 @@ export default async function Home() {
     return shuffled.slice(0, count)
   }
 
-  const randomProducts: ProductI[] = getRandomProducts(featuredProducts, 4)
+  const randomProducts: ProductI[] = getRandomProducts(featuredProducts, 8)
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
@@ -174,33 +172,12 @@ export default async function Home() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categories.map((category: allCategoriesI) => (
-            <Link
+          {categories.map((category: allCategoriesI, index: number) => (
+            <CategoryCard
               key={category._id}
-              href={`/categories/${category._id}`}
-              className="group relative overflow-hidden rounded-2xl border border-border shadow-sm hover:shadow-xl hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-1"
-            >
-              <div className="relative aspect-square bg-muted">
-                <Image
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  src={category.image}
-                  alt={category.name}
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-end p-6">
-                <div>
-                  <h3 className="text-white text-2xl font-bold tracking-tight group-hover:text-primary transition-colors">
-                    {category.name}
-                  </h3>
-                  <p className="text-neutral-300 text-xs mt-1 flex items-center gap-1 font-medium">
-                    <span>Shop Collection</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </p>
-                </div>
-              </div>
-            </Link>
+              category={category}
+              priority={index < 4}
+            />
           ))}
         </div>
       </section>
@@ -220,49 +197,12 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {randomProducts.map((product) => (
-              <div key={product.id} className="flex">
-                <Card className="flex flex-col h-full w-full overflow-hidden rounded-2xl border-border bg-card shadow-sm hover:shadow-xl hover:border-primary/40 transition-all duration-300 transform hover:-translate-y-1">
-                  <Link href={`/products/${product._id}`} className="flex-1 flex flex-col">
-                    <div className="relative w-full aspect-square overflow-hidden bg-muted">
-                      <Image
-                        fill
-                        src={product.imageCover}
-                        alt={product.title}
-                        className='object-cover hover:scale-105 transition-transform duration-500'
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      />
-                    </div>
-                    <CardHeader className="flex-1 p-5">
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-xs font-bold uppercase tracking-wider text-primary">{product.brand?.name}</span>
-                        <div className='flex items-center gap-1 bg-amber-400/10 px-2 py-0.5 rounded-full'>
-                          <Star className='w-3.5 h-3.5 text-amber-500 fill-amber-500' />
-                          <span className='text-xs font-bold text-amber-600 dark:text-amber-400'>{product.ratingsAverage}</span>
-                        </div>
-                      </div>
-
-                      <CardTitle className='text-base font-bold line-clamp-2 leading-snug hover:text-primary transition-colors'>
-                        {product.title}
-                      </CardTitle>
-                      <CardDescription className='text-xs text-muted-foreground mt-1 line-clamp-1'>
-                        {product.category?.name}
-                      </CardDescription>
-
-                      <div className="mt-4 pt-3 border-t border-border flex items-baseline justify-between">
-                        <div>
-                          <span className="text-xs text-muted-foreground block">Price</span>
-                          <span className='text-xl font-extrabold text-foreground'>EGP {product.price.toFixed(2)}</span>
-                        </div>
-                      </div>
-                    </CardHeader>
-                  </Link>
-                  <CardFooter className='p-5 pt-0 gap-2'>
-                    <AddCartButton prodId={product._id} />
-                    <AddWishlistButton prodId={product._id} />
-                  </CardFooter>
-                </Card>
-              </div>
+            {randomProducts.map((product, index) => (
+              <ProductCard
+                key={product._id}
+                product={product}
+                priority={index < 4}
+              />
             ))}
           </div>
         </div>
